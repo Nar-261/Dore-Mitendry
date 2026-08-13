@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DoReMiTendry | Espace apprenant</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
+  <style>
+    :root {
+      --bg: #060606;
+      --panel: #121212;
+      --panel-2: #171717;
+      --text: #f7f1e3;
+      --muted: #9d9487;
+      --gold: #c79b4b;
+      --gold-deep: #8b5d1f;
+      --border: rgba(199,155,75,.2);
+    }
+    * { box-sizing: border-box; }
+    body { margin:0; font-family:'Poppins',sans-serif; background:linear-gradient(135deg,#050505,#12110d 55%,#0f0b08); color:var(--text); }
+    a { text-decoration:none; color:inherit; }
+    .app-shell { display:flex; min-height:100vh; }
+    .sidebar { width:270px; background:rgba(10,10,10,.96); border-right:1px solid var(--border); padding:24px 18px; display:flex; flex-direction:column; gap:20px; position:sticky; top:0; height:100vh; }
+    .brand { display:flex; align-items:center; gap:12px; }
+    .brand-mark { width:46px; height:46px; border-radius:12px; background:linear-gradient(135deg,var(--gold),var(--gold-deep)); color:#000; display:grid; place-items:center; font-weight:700; }
+    .brand h1 { font-size:1rem; margin:0; }
+    .brand p { margin:2px 0 0; color:var(--muted); font-size:0.78rem; }
+    .sidebar nav { display:flex; flex-direction:column; gap:8px; margin-top:6px; }
+    .sidebar a { display:flex; align-items:center; gap:10px; padding:10px 12px; border-radius:12px; color:var(--muted); transition:.2s ease; }
+    .sidebar a:hover, .sidebar a.active { background:rgba(199,155,75,.12); color:var(--text); }
+    .main { flex:1; padding:24px; }
+    .topbar { display:flex; justify-content:space-between; align-items:center; gap:16px; margin-bottom:24px; }
+    .topbar-left { display:flex; align-items:center; gap:12px; }
+    .icon-btn { width:42px; height:42px; border:1px solid var(--border); background:var(--panel); color:var(--text); border-radius:50%; cursor:pointer; }
+    .search { flex:1; max-width:480px; display:flex; align-items:center; gap:10px; background:var(--panel-2); border:1px solid var(--border); border-radius:999px; padding:10px 14px; color:var(--muted); }
+    .search input { flex:1; background:transparent; border:none; color:var(--text); outline:none; }
+    .userbox { display:flex; align-items:center; gap:12px; }
+    .avatar { width:42px; height:42px; border-radius:50%; background:linear-gradient(135deg,var(--gold),#f0d29b); color:#000; display:grid; place-items:center; font-weight:700; }
+    .hero, .card, .stat-card, .mini-card { background:rgba(18,18,18,.9); border:1px solid var(--border); border-radius:20px; box-shadow:0 10px 30px rgba(0,0,0,.25); }
+    .hero { display:flex; justify-content:space-between; align-items:center; padding:24px; margin-bottom:24px; }
+    .hero h2 { margin:0 0 8px; font-size:1.8rem; }
+    .hero p { margin:0; color:var(--muted); }
+    .progress-ring { width:140px; height:140px; border-radius:50%; background:conic-gradient(var(--gold) 68%, rgba(255,255,255,.08) 0); display:grid; place-items:center; }
+    .progress-ring span { width:110px; height:110px; border-radius:50%; background:var(--panel); display:grid; place-items:center; font-size:1.3rem; font-weight:700; }
+    .grid { display:grid; gap:20px; }
+    .grid-2 { grid-template-columns:1.4fr 1fr; }
+    .grid-3 { grid-template-columns:repeat(auto-fit, minmax(240px, 1fr)); }
+    .card { padding:20px; }
+    .section-title { display:flex; justify-content:space-between; align-items:center; margin-bottom:14px; }
+    .section-title h3 { margin:0; font-size:1.05rem; }
+    .badge { display:inline-block; padding:6px 10px; border-radius:999px; background:rgba(199,155,75,.14); color:var(--gold); font-size:.8rem; }
+    .course-card { display:flex; flex-direction:column; gap:12px; padding:14px; border:1px solid var(--border); border-radius:16px; background:rgba(255,255,255,.02); }
+    .course-card img { border-radius:14px; width:100%; height:130px; object-fit:cover; }
+    .progress-bar { height:8px; width:100%; background:rgba(255,255,255,.08); border-radius:999px; overflow:hidden; }
+    .progress-bar span { display:block; height:100%; background:linear-gradient(90deg,var(--gold),#f0d29b); }
+    .btn { display:inline-block; padding:10px 12px; border-radius:10px; border:none; cursor:pointer; font-weight:600; }
+    .btn-gold { background:linear-gradient(135deg,var(--gold),#f0d29b); color:#000; }
+    .btn-dark { background:rgba(255,255,255,.06); color:var(--text); border:1px solid var(--border); }
+    .stat-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px; }
+    .stat-card { padding:16px; }
+    .stat-card h4 { margin:0 0 6px; font-size:1.6rem; }
+    .stat-card p { margin:0; color:var(--muted); }
+    .badge-list { display:grid; gap:12px; }
+    .badge-item { display:flex; gap:12px; align-items:center; }
+    .badge-ico { width:44px; height:44px; border-radius:50%; display:grid; place-items:center; background:rgba(199,155,75,.16); color:var(--gold); }
+    .promo { padding:24px; background:linear-gradient(135deg,rgba(199,155,75,.18),rgba(139,69,19,.08)); }
+    @media (max-width:980px){ .app-shell{flex-direction:column;} .sidebar{width:100%;height:auto;position:relative;} .grid-2{grid-template-columns:1fr;} }
+    @media (max-width:700px){ .main{padding:16px;} .topbar{flex-wrap:wrap;} .search{max-width:none;width:100%;} .hero{flex-direction:column;align-items:flex-start;} .stat-grid{grid-template-columns:1fr;} }
+  </style>
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-mark">D</div>
+        <div>
+          <h1>DoReMiTendry</h1>
+          <p>Apprendre la musique, vivre la passion</p>
+        </div>
+      </div>
+      <nav>
+        <a href="#" class="active"><i class="fa-solid fa-table-columns"></i> Tableau de bord</a>
+        <a href="#"><i class="fa-solid fa-book-open"></i> Mes cours</a>
+        <a href="#"><i class="fa-solid fa-guitar"></i> Instruments</a>
+        <a href="#"><i class="fa-solid fa-route"></i> Parcours</a>
+        <a href="#"><i class="fa-solid fa-dumbbell"></i> Exercices</a>
+        <a href="#"><i class="fa-solid fa-music"></i> Partitions</a>
+        <a href="#"><i class="fa-solid fa-heart"></i> Favoris</a>
+        <a href="#"><i class="fa-solid fa-certificate"></i> Certificats</a>
+        <a href="#"><i class="fa-solid fa-message"></i> Messages</a>
+        <a href="#"><i class="fa-solid fa-gear"></i> Paramètres</a>
+        <a href="index.html"><i class="fa-solid fa-house"></i> Retour à l'accueil</a>
+        <a href="Connexion.html"><i class="fa-solid fa-right-from-bracket"></i> Déconnexion</a>
+      </nav>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <div class="topbar-left">
+          <button class="icon-btn"><i class="fa-solid fa-bars"></i></button>
+          <div class="search">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" placeholder="Rechercher un cours, une leçon, un exercice..." />
+          </div>
+        </div>
+        <div class="userbox">
+          <button class="icon-btn"><i class="fa-solid fa-bell"></i></button>
+          <button class="icon-btn"><i class="fa-solid fa-envelope"></i></button>
+          <div class="avatar">M</div>
+          <div>
+            <strong>Mihaja</strong><br />
+            <small>Apprenant</small>
+          </div>
+        </div>
+      </header>
+
+      <section class="hero">
+        <div>
+          <p class="badge">Bienvenue</p>
+          <h2>Bienvenue, Mihaja 👋</h2>
+          <p>Continuez votre apprentissage et progressez à votre rythme.</p>
+        </div>
+        <div class="progress-ring"><span>68%</span></div>
+      </section>
+
+      <div class="grid grid-2">
+        <section class="card">
+          <div class="section-title">
+            <h3>Reprendre là où vous vous êtes arrêté</h3>
+            <span class="badge">En cours</span>
+          </div>
+          <div class="grid grid-3">
+            <article class="course-card">
+              <img src="../IMAGES/piano.jpg" alt="Piano" />
+              <div class="badge">Piano</div>
+              <h4>Accords et rythmes - Niveau 1</h4>
+              <p>Leçon actuelle : Techniques de main gauche</p>
+              <div class="progress-bar"><span style="width:72%"></span></div>
+              <a href="#" class="btn btn-gold">Lecture</a>
+            </article>
+            <article class="course-card">
+              <img src="../IMAGES/guitar.jpg" alt="Guitare" />
+              <div class="badge">Guitare</div>
+              <h4>Rythmes et accompagnement</h4>
+              <p>Leçon actuelle : Accords de base</p>
+              <div class="progress-bar"><span style="width:58%"></span></div>
+              <a href="#" class="btn btn-dark">Lecture</a>
+            </article>
+            <article class="course-card">
+              <img src="../IMAGES/flute.jpg" alt="Flûte" />
+              <div class="badge">Flûte</div>
+              <h4>Solfège - Lecture de notes</h4>
+              <p>Leçon actuelle : Lecture de portée</p>
+              <div class="progress-bar"><span style="width:40%"></span></div>
+              <a href="#" class="btn btn-dark">Lecture</a>
+            </article>
+          </div>
+        </section>
+
+        <section class="card">
+          <div class="section-title">
+            <h3>Statistiques apprenant</h3>
+            <span class="badge">Aujourd'hui</span>
+          </div>
+          <div class="stat-grid">
+            <div class="stat-card"><h4>12</h4><p>Série d’apprentissage</p></div>
+            <div class="stat-card"><h4>18h</h4><p>Temps total</p></div>
+            <div class="stat-card"><h4>46</h4><p>Leçons terminées</p></div>
+            <div class="stat-card"><h4>3</h4><p>Certificats</p></div>
+          </div>
+        </section>
+      </div>
+
+      <div class="grid grid-2" style="margin-top:20px;">
+        <section class="card">
+          <div class="section-title">
+            <h3>Parcours d’apprentissage</h3>
+            <span class="badge">3 parcours</span>
+          </div>
+          <div class="grid grid-3">
+            <article class="course-card">
+              <img src="../IMAGES/piano.jpg" alt="Piano" />
+              <h4>Piano</h4>
+              <p>Débutant • 12 modules • 48 leçons</p>
+              <div class="progress-bar"><span style="width:68%"></span></div>
+              <a href="#" class="btn btn-gold">Continuer</a>
+            </article>
+            <article class="course-card">
+              <img src="../IMAGES/guitar.jpg" alt="Guitare" />
+              <h4>Guitare</h4>
+              <p>Débutant • 10 modules • 40 leçons</p>
+              <div class="progress-bar"><span style="width:55%"></span></div>
+              <a href="#" class="btn btn-dark">Continuer</a>
+            </article>
+            <article class="course-card">
+              <img src="../IMAGES/flute.jpg" alt="Flûte" />
+              <h4>Flûte</h4>
+              <p>Débutant • 8 modules • 32 leçons</p>
+              <div class="progress-bar"><span style="width:30%"></span></div>
+              <a href="#" class="btn btn-dark">Continuer</a>
+            </article>
+          </div>
+        </section>
+
+        <section class="card">
+          <div class="section-title">
+            <h3>Derniers badges obtenus</h3>
+            <span class="badge">Nouveau</span>
+          </div>
+          <div class="badge-list">
+            <div class="badge-item">
+              <div class="badge-ico"><i class="fa-solid fa-award"></i></div>
+              <div><strong>Persévérant</strong><br /><small>10 jours d’apprentissage</small></div>
+            </div>
+            <div class="badge-item">
+              <div class="badge-ico"><i class="fa-solid fa-drum"></i></div>
+              <div><strong>Rythme Master</strong><br /><small>Maîtrise les rythmes</small></div>
+            </div>
+            <div class="badge-item">
+              <div class="badge-ico"><i class="fa-solid fa-book"></i></div>
+              <div><strong>Lecteur assidu</strong><br /><small>20 leçons complétées</small></div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <section class="card promo" style="margin-top:20px;">
+        <h3>Pass Premium</h3>
+        <p>Accédez à tous les cours, ressources et avantages exclusifs.</p>
+        <a href="#" class="btn btn-gold">Découvrir</a>
+      </section>
+    </main>
+  </div>
+</body>
+</html>

@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="500" viewBox="0 0 800 500">
+  <rect width="800" height="500" fill="#0f0b08"/>
+  <rect x="140" y="120" width="520" height="260" rx="24" fill="#21150d" stroke="#c79b4b" stroke-width="3"/>
+  <rect x="190" y="160" width="60" height="180" rx="12" fill="#f5d9a1"/>
+  <rect x="270" y="160" width="60" height="180" rx="12" fill="#f5d9a1"/>
+  <rect x="350" y="160" width="60" height="180" rx="12" fill="#f5d9a1"/>
+  <rect x="430" y="160" width="60" height="180" rx="12" fill="#f5d9a1"/>
+  <rect x="510" y="160" width="60" height="180" rx="12" fill="#f5d9a1"/>
+  <circle cx="620" cy="210" r="46" fill="#c79b4b" opacity="0.9"/>
+  <text x="400" y="430" text-anchor="middle" fill="#f5d9a1" font-family="Poppins, Arial" font-size="28">Piano</text>
+</svg>

@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="500" viewBox="0 0 800 500">
+  <rect width="800" height="500" fill="#0f0b08"/>
+  <rect x="180" y="140" width="440" height="220" rx="24" fill="#1a120d" stroke="#c79b4b" stroke-width="3"/>
+  <path d="M280 240c40-30 90-40 140-40h80" stroke="#f5d9a1" stroke-width="10" fill="none" stroke-linecap="round"/>
+  <rect x="500" y="190" width="60" height="70" rx="20" fill="#c79b4b"/>
+  <text x="400" y="430" text-anchor="middle" fill="#f5d9a1" font-family="Poppins, Arial" font-size="28">Flûte</text>
+</svg>

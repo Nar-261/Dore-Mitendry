@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Inscription</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../CSS/connexion.css" />
+</head>
+<body>
+  <main class="login-page">
+    <section class="login-panel" aria-labelledby="register-title">
+      <div class="brand">
+        <img src="../IMAGES/logo version fn.jpg" alt="logo" />
+        <h1 id="register-title">Créer un compte</h1>
+        <p class="muted">Rejoignez DoReMiTendry et commencez votre aventure musicale</p>
+      </div>
+
+      <form id="register-form" class="login-form" action="../register.php" method="post" novalidate>
+        <div class="field">
+          <label for="fullName">Nom complet</label>
+          <input id="fullName" name="fullName" type="text" required placeholder="Votre nom complet" />
+          <span class="error" aria-live="polite"></span>
+        </div>
+
+        <div class="field">
+          <label for="email">Email</label>
+          <input id="email" name="email" type="email" required placeholder="ex: you@mail.com" />
+          <span class="error" aria-live="polite"></span>
+        </div>
+
+        <div class="field">
+          <label for="registerPassword">Mot de passe</label>
+          <div class="password-wrap">
+            <input id="registerPassword" name="registerPassword" type="password" required minlength="6" placeholder="Choisissez un mot de passe" />
+            <button type="button" id="toggleRegisterPwd" class="toggle-pwd" aria-label="Afficher le mot de passe">👁️</button>
+          </div>
+          <span class="error" aria-live="polite"></span>
+        </div>
+
+        <div class="field">
+          <label for="confirmPassword">Confirmer le mot de passe</label>
+          <input id="confirmPassword" name="confirmPassword" type="password" required placeholder="Retapez le mot de passe" />
+          <span class="error" aria-live="polite"></span>
+        </div>
+
+        <button type="submit" class="btn-primary btn-login">Créer mon compte</button>
+      </form>
+
+      <p class="signup">Vous avez déjà un compte ? <a href="Connexion.html">Se connecter</a></p>
+    </section>
+  </main>
+
+  <script src="../JS/inscription.js" defer></script>
+</body>
+</html>

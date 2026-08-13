@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="500" viewBox="0 0 800 500">
+  <rect width="800" height="500" fill="#0f0b08"/>
+  <rect x="180" y="130" width="440" height="240" rx="24" fill="#1b130d" stroke="#c79b4b" stroke-width="3"/>
+  <path d="M280 260c40-80 180-125 260-80" stroke="#f5d9a1" stroke-width="10" fill="none" stroke-linecap="round"/>
+  <circle cx="240" cy="270" r="34" fill="#c79b4b"/>
+  <circle cx="520" cy="190" r="24" fill="#f7f1e3"/>
+  <text x="400" y="430" text-anchor="middle" fill="#f5d9a1" font-family="Poppins, Arial" font-size="28">Guitare</text>
+</svg>

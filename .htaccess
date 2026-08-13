@@ -1,0 +1,7 @@
+# Prioritize the homepage located in HTML/index.html
+DirectoryIndex HTML/index.html index.html index.php
+
+# Optional: keep admin and login pages accessible normally
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+</IfModule>

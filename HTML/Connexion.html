@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Connexion</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../CSS/connexion.css" />
+</head>
+<body>
+    <main class="login-page">
+        <section class="login-panel" aria-labelledby="login-title">
+            <div class="brand">
+                <img src="../IMAGES/logo version fn.jpg" alt="logo" onerror="this.style.display='none'" />
+                <h1 id="login-title">Se connecter</h1>
+                <p class="muted">Entrez vos identifiants pour accéder à votre compte</p>
+            </div>
+
+            <form id="login-form" class="login-form" action="../login.php" method="post" novalidate>
+                <div class="field">
+                    <label for="identifier">Email ou téléphone</label>
+                    <input id="identifier" name="identifier" type="text" inputmode="email" required placeholder="ex: you@mail.com" />
+                    <span class="error" aria-live="polite"></span>
+                </div>
+
+                <div class="field">
+                    <label for="password">Mot de passe</label>
+                    <div class="password-wrap">
+                        <input id="password" name="password" type="password" required minlength="6" placeholder="Votre mot de passe" />
+                        <button type="button" id="togglePwd" class="toggle-pwd" aria-label="Afficher le mot de passe">👁️</button>
+                    </div>
+                    <span class="error" aria-live="polite"></span>
+                </div>
+
+                <div class="actions-row">
+                    <label class="remember">
+                        <input type="checkbox" name="remember" /> Se souvenir de moi
+                    </label>
+                    <a href="../forgot.php" class="forgot">Mot de passe oublié?</a>
+                </div>
+
+                <button type="submit" class="btn-primary btn-login">Se connecter</button>
+
+                <div class="divider"><span>ou</span></div>
+
+                <div class="socials">
+                    <button type="button" class="btn-social btn-google">Se connecter avec Google</button>
+                    <button type="button" class="btn-social btn-facebook">Se connecter avec Facebook</button>
+                </div>
+            </form>
+
+            <p class="signup">Pas encore de compte ? <a href="Inscription.html">Créer un compte</a></p>
+        </section>
+    </main>
+
+    <script src="../JS/connexion.js" defer></script>
+</body>
+</html>

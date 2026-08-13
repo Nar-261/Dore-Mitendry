@@ -1,0 +1,330 @@
+/* --- Variables de couleur (Thème Marron et Bronze) --- */
+:root {
+  --primary-color: #8B4513;
+  /* Marron */
+  --secondary-color: #CD7F32;
+  /* Bronze */
+  --text-color: #333;
+  --light-bg: #fdf5e6;
+  /* Fond clair chaud */
+  --white: #ffffff;
+}
+
+/* --- Reset et Base --- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  background-color: var(--light-bg);
+  color: var(--text-color);
+  line-height: 1.6;
+}
+
+/* --- Navbar --- */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 5%;
+  background: var(--white);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  height: 120px;
+  width: auto;
+
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: var(--primary-color);
+  position: relative;
+  top: 30px
+}
+
+.logo img {
+  height: 150px;
+  border-radius: 50%;
+  margin-right: 40px;
+
+}
+
+/* --- Logo fixe + overlay animé --- */
+.logo-img1 {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.logo-static {
+  height: 80px;
+  width: 80px;
+  border-radius: 50%;
+  z-index: 1;
+  display: block;
+}
+
+.logo-overlay {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 80px;
+  height: 80px;
+  overflow: visible;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.logo-slide {
+  height: 72px;
+  width: auto;
+  display: block;
+  transform: translateX(120%);
+  animation: slideLogo 4s linear infinite;
+}
+
+@keyframes slideLogo {
+  0% { transform: translateX(120%); opacity: 1; }
+  45% { transform: translateX(0%); opacity: 1; }
+  70% { transform: translateX(-40%); opacity: 1; }
+  100% { transform: translateX(-120%); opacity: 0; }
+}
+
+.logo-text {
+  margin-top: 25px;
+}
+
+.logo-img1 {
+  display: flex;
+  justify-content: space-between;
+
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+}
+
+.nav-buttons {
+  display: flex;
+  flex-direction: left;
+  gap: 10px;
+  position: relative;
+  left: 80px;
+
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: var(--text-color);
+  font-weight: 500;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+  color: var(--primary-color);
+}
+
+.nav-buttons a {
+  padding: 8px 20px;
+  border-radius: 5px;
+  text-decoration: none;
+}
+
+.btn-login {
+  border: 1px solid var(--primary-color);
+  color: var(--primary-color);
+
+}
+
+.btn-register {
+  background: var(--primary-color);
+  color: var(--white);
+}
+
+/* --- Sections Générales --- */
+section {
+  padding: 80px 5%;
+}
+
+.section-title {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.section-title span {
+  color: var(--secondary-color);
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+/* --- Boutons Généraux --- */
+.btn-primary {
+  display: inline-block;
+  padding: 12px 30px;
+  background: var(--primary-color);
+  color: var(--white);
+  border-radius: 5px;
+  text-decoration: none;
+}
+
+/* --- Hero Section --- */
+.hero {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+}
+
+.hero-content h1 {
+  font-size: 3rem;
+  color: var(--primary-color);
+}
+
+.hero-info {
+  display: flex;
+  gap: 30px;
+  margin-top: 30px;
+}
+
+.info-box {
+  border-left: 3px solid var(--secondary-color);
+  padding-left: 10px;
+}
+
+/* --- About & Instruments --- */
+.about-container,
+.instrument-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 40px;
+  align-items: stretch;
+  grid-auto-rows: 1fr;
+}
+
+.about-container img,
+.instrument-container img,
+.piano-kely {
+  width: 100%;
+  max-width: 100%;
+  height: 100px;
+  display: block;
+  margin: 0 auto;
+  object-fit: contain;
+}
+
+.about-sary img,
+.about-sary .piano-kely {
+  width: auto;
+  max-width: none;
+  height: auto;
+  display: flex;
+  margin: 0;
+  object-fit: initial;
+  box-shadow: none;
+  border: none;
+}
+
+.instrument-card {
+  background: var(--white);
+  padding: 20px;
+  border-radius: 10px;
+  border: 1px solid var(--secondary-color);
+  background-image: -moz-element();
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+/* --- Formations --- */
+.formation-container {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+}
+
+.formation-card {
+  padding: 30px;
+  background: var(--white);
+  border-radius: 10px;
+  border-top: 5px solid var(--primary-color);
+}
+
+.featured {
+  border-top: 5px solid var(--secondary-color);
+  transform: scale(1.05);
+}
+
+.site-footer {
+  background-color: #3e2723;
+  /* Marron foncé pour contraste */
+  color: #fff;
+  padding: 50px 5% 20px;
+  text-align: center;
+  margin-top: 50px;
+}
+
+.footer-content h3 {
+  color: var(--secondary-color);
+  /* Couleur Bronze */
+  margin-bottom: 20px;
+}
+
+.contact-links {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin: 30px 0;
+}
+
+.contact-links a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 1.1rem;
+  transition: 0.3s;
+}
+
+.contact-links a:hover {
+  color: var(--secondary-color);
+}
+
+.contact-links i {
+  margin-right: 10px;
+}
+
+.footer-bottom {
+  margin-top: 40px;
+  padding-top: 20px;
+  border-top: 1px solid #5d4037;
+  font-size: 0.9rem;
+  color: #ccc;
+}
+
+/* --- Logos défilants --- */
+.logo-marquee {
+  overflow: hidden;
+  background: transparent;
+  padding: 20px 0;
+}
+.logo-track {
+  display: flex;
+  gap: 40px;
+  align-items: center;
+  /* doublez les images dans le HTML pour une boucle continue */
+  animation: marquee 12s linear infinite;
+}
+.logo-track img {
+  height: 80px;
+  width: auto;
+  display: block;
+}
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
