@@ -11,11 +11,6 @@ if (!empty($_SESSION['user_id'])) {
     exit;
 }
 
-if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    header('Location: HTML/Connexion.html');
-    exit;
-}
-
 function respondJson(array $payload)
 {
     header('Content-Type: application/json; charset=utf-8');
@@ -33,8 +28,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($identifier === '' || $password === '') {
         $errors[] = 'Veuillez saisir votre email ou téléphone et votre mot de passe.';
     } else {
-        $stmt = $pdo->prepare('SELECT id, nom, prenom, mot_de_passe, role FROM utilisateurs WHERE (email = ? OR telephone = ?) AND role = ? LIMIT 1');
-        $stmt->execute([$identifier, $identifier, 'apprenant']);
+        $stmt = $pdo->prepare('SELECT id, nom, prenom, mot_de_passe, role FROM utilisateurs WHERE email = ? OR telephone = ? LIMIT 1');
+        $stmt->execute([$identifier, $identifier]);
         $user = $stmt->fetch();
 
         if ($user && password_verify($password, $user['mot_de_passe'])) {
@@ -57,7 +52,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 respondJson(['success' => true]);
             }
 
-            header('Location: utilisateur/dashboard.php');
+            $url = ($user['role'] === 'admin') ? 'admin/dashboard.php' : 'utilisateur/dashboard.php';
+            header('Location: '.$url);
             exit;
         } else {
             $errors[] = 'Email ou mot de passe incorrect.';

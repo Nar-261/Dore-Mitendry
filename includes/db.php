@@ -1,8 +1,8 @@
 <?php
 $host = '127.0.0.1';
 $db   = 'doremitendry';
-$user = 'root';
-$pass = '';
+$user = 'admin';
+$pass = 'root';
 $charset = 'utf8mb4';
 
 $dsn = "mysql:host=$host;dbname=$db;charset=$charset";
@@ -18,3 +18,4 @@ try {
 } catch (PDOException $e) {
     die('Connexion MySQL impossible : ' . $e->getMessage());
 }
+?>

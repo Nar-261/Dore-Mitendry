@@ -1,8 +1,8 @@
 <?php
 session_start();
 if (!isset($_SESSION['user_id']) || ($_SESSION['user_role'] ?? '') !== 'admin') {
-    header('Location: login.php');
-    exit;
+  header('Location: ../login.php');
+  exit;
 }
 require_once __DIR__ . '/../includes/db.php';
 
@@ -10,25 +10,38 @@ $success = '';
 $errors = [];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+  //suppression des cours dans la bd
+  if (isset($_POST['supprimer'])) {
+    $stmt = $pdo->prepare('DELETE FROM cours where id= ?');
+    $stmt->execute([$_POST['supprimer']]);
+  }
+  //insertion de cours dans la bd
+  elseif (isset($_POST['titre'])) {
     $titre = trim($_POST['titre'] ?? '');
     $description = trim($_POST['description'] ?? '');
     $niveau = trim($_POST['niveau'] ?? 'Débutant');
     $instrumentId = isset($_POST['instrument_id']) ? (int)$_POST['instrument_id'] : 0;
 
     if ($titre === '') {
-        $errors[] = 'Le titre du cours est obligatoire.';
+      $errors[] = 'Le titre du cours est obligatoire.';
     } else {
-        $stmt = $pdo->prepare('INSERT INTO cours (titre, description, niveau, instrument_id) VALUES (?, ?, ?, ?)');
-        $stmt->execute([$titre, $description, $niveau, $instrumentId ?: null]);
-        $success = 'Cours ajouté avec succès.';
+      $stmt = $pdo->prepare('INSERT INTO cours (titre, description, niveau, instrument_id) VALUES (?, ?, ?, ?)');
+      $stmt->execute([$titre, $description, $niveau, $instrumentId ?: null]);
+      $success = 'Cours ajouté avec succès.';
+      header('Location: courses.php');
+      exit;
     }
+  }
 }
+
+
 
 $instruments = $pdo->query('SELECT id, nom FROM instruments ORDER BY nom')->fetchAll();
 $courses = $pdo->query('SELECT c.id, c.titre, c.description, c.niveau, i.nom AS instrument FROM cours c LEFT JOIN instruments i ON i.id = c.instrument_id ORDER BY c.id DESC')->fetchAll();
 ?>
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -36,12 +49,16 @@ $courses = $pdo->query('SELECT c.id, c.titre, c.description, c.niveau, i.nom AS 
   <link rel="stylesheet" href="admin.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
 </head>
+
 <body>
   <div class="app-shell">
     <aside class="sidebar">
       <div class="brand">
         <div class="brand-mark">D</div>
-        <div><h1>DoReMiTendry</h1><p>Back Office</p></div>
+        <div>
+          <h1>DoReMiTendry</h1>
+          <p>Back Office</p>
+        </div>
       </div>
       <nav>
         <a href="dashboard.php"><i class="fa-solid fa-table-columns"></i> Tableau de bord</a>
@@ -54,10 +71,14 @@ $courses = $pdo->query('SELECT c.id, c.titre, c.description, c.niveau, i.nom AS 
       <h2 style="margin-top:0;">Gestion des cours</h2>
       <p class="muted">Ajoutez et consultez les contenus pédagogiques.</p>
       <?php if (!empty($success)) echo '<div class="success">' . htmlspecialchars($success) . '</div>'; ?>
-      <?php if (!empty($errors)) { foreach ($errors as $e) echo '<div class="alert">' . htmlspecialchars($e) . '</div>'; } ?>
+      <?php if (!empty($errors)) {
+        foreach ($errors as $e) echo '<div class="alert">' . htmlspecialchars($e) . '</div>';
+      } ?>
 
       <section class="card" style="margin-bottom:20px;">
-        <div class="section-title"><h3>Ajouter un cours</h3></div>
+        <div class="section-title">
+          <h3>Ajouter un cours</h3>
+        </div>
         <form method="post">
           <div class="form-group">
             <label>Titre</label>
@@ -85,10 +106,17 @@ $courses = $pdo->query('SELECT c.id, c.titre, c.description, c.niveau, i.nom AS 
       </section>
 
       <section class="card">
-        <div class="section-title"><h3>Liste des cours</h3></div>
+        <div class="section-title">
+          <h3>Liste des cours</h3>
+        </div>
         <table class="table">
           <thead>
-            <tr><th>Titre</th><th>Instrument</th><th>Niveau</th><th>Description</th></tr>
+            <tr>
+              <th>Titre</th>
+              <th>Instrument</th>
+              <th>Niveau</th>
+              <th>Description</th>
+            </tr>
           </thead>
           <tbody>
             <?php foreach ($courses as $course): ?>
@@ -97,6 +125,13 @@ $courses = $pdo->query('SELECT c.id, c.titre, c.description, c.niveau, i.nom AS 
                 <td><?= htmlspecialchars($course['instrument'] ?? '-') ?></td>
                 <td><?= htmlspecialchars($course['niveau'] ?? '') ?></td>
                 <td><?= htmlspecialchars($course['description'] ?? '') ?></td>
+                <td>
+              <!--bouton pour supprimer une cours-->
+                  <form method='POST'>
+                    <input type="hidden" name='supprimer' value="<?= $course['id'] ?>">
+                    <input type="submit" name='suppr' value="supprimer" class='btn btn-gold'>
+                  </form>
+                </td>
               </tr>
             <?php endforeach; ?>
           </tbody>
@@ -105,4 +140,5 @@ $courses = $pdo->query('SELECT c.id, c.titre, c.description, c.niveau, i.nom AS 
     </main>
   </div>
 </body>
+
 </html>
