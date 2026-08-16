@@ -11,7 +11,7 @@ class Cours
 
     public function getAll(): array
     {   
-        $sql = 'SELECT c.id, c.titre, c.description, c.niveau, c.image, c.instrument_id, i.nom AS instrument 
+        $sql = 'SELECT c.id, c.titre, c.description, c.niveau, c.instrument_id, i.nom AS instrument 
                 FROM cours c 
                 LEFT JOIN instruments i ON i.id = c.instrument_id 
                 ORDER BY c.id DESC';
@@ -27,15 +27,14 @@ class Cours
         return $stmt->fetch(PDO::FETCH_ASSOC) ?: null;
     }
 
-    public function create(string $titre, string $description, string $image, ?int $instrument_id, string $niveau): bool
+    public function create(string $titre, string $description, ?int $instrument_id, string $niveau): bool
     {
-        $sql = 'INSERT INTO cours (titre, description, image, instrument_id, niveau) 
-                VALUES (:titre, :description, :image, :instrument_id, :niveau)';
+        $sql = 'INSERT INTO cours (titre, description, instrument_id, niveau) 
+                VALUES (:titre, :description, :instrument_id, :niveau)';
         $stmt = $this->db->prepare($sql);
         return $stmt->execute([
             ':titre'         => $titre,
             ':description'   => $description,
-            ':image'         => $image,
             ':instrument_id' => $instrument_id,
             ':niveau'        => $niveau,
         ]);
@@ -48,12 +47,11 @@ class Cours
         return $stmt->execute([$id]);
     }
 
-    public function update(int $id, string $titre, string $description, string $image, ?int $instrument_id, string $niveau): bool
+    public function update(int $id, string $titre, string $description, ?int $instrument_id, string $niveau): bool
     {
         $sql = 'UPDATE cours 
                 SET titre = :titre, 
                     description = :description, 
-                    image = :image, 
                     instrument_id = :instrument_id, 
                     niveau = :niveau 
                 WHERE id = :id';
@@ -63,7 +61,6 @@ class Cours
             ':id'            => $id,
             ':titre'         => $titre,
             ':description'   => $description,
-            ':image'         => $image,
             ':instrument_id' => $instrument_id,
             ':niveau'        => $niveau,
         ]);

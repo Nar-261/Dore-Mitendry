@@ -45,6 +45,7 @@ $users = $pdo->query('SELECT id, nom, prenom, email, role, date_inscription FROM
         <a href="users.php" class="active"><i class="fa-solid fa-users"></i> Utilisateurs</a>
         <a href="courses.php"><i class="fa-solid fa-book-open"></i> Cours</a>
         <a href="modules.php"><i class="fa-solid fa-layer-group"></i> Modules</a>
+        <a href="lecons.php"><i class="fa-solid fa-video"></i> Leçons</a>
         <a href="partitions.php"><i class="fa-solid fa-file-lines"></i> Partitions</a>
         <a href="instruments.php"><i class="fa-solid fa-music"></i> Instruments</a>
         <a href="exercices.php"><i class="fa-solid fa-clipboard-question"></i> Exercices</a>

@@ -23,16 +23,33 @@ class utilisateur
         return $stmt->fetch(PDO::FETCH_ASSOC)?:null;
     }
 
-    public function create($nom, $prenom, $email, $tel, $mdp):bool
+    public function create($nom, $prenom, $email, $tel, $mdp, $photo = null, $role = 'apprenant'):bool
     {
-        $sql = 'INSERT INTO utilisateurs (nom, prenom, email, telephone, mot_de_passe) VALUES (:nom,:prenom,:email,:telephone,:mot_de_passe)';
+        $sql = 'INSERT INTO utilisateurs (nom, prenom, email, telephone, photo, mot_de_passe, role) VALUES (:nom,:prenom,:email,:telephone,:photo,:mot_de_passe,:role)';
         $stmt = $this->db->prepare($sql);
         return $stmt->execute([
             ':nom'=> $nom,
             ':prenom'=> $prenom,
             ':email'=> $email,
             ':telephone'=> $tel,
+            ':photo'=> $photo,
             ':mot_de_passe'=> $mdp,
+            ':role'=> $role,
+        ]);
+    }
+
+    public function update($id, $nom, $prenom, $email, $tel, $photo = null, $role = 'apprenant'):bool
+    {
+        $sql = 'UPDATE utilisateurs SET nom=:nom, prenom=:prenom, email=:email, telephone=:telephone, photo=:photo, role=:role WHERE id=:id';
+        $stmt = $this->db->prepare($sql);
+        return $stmt->execute([
+            ':id'=> $id,
+            ':nom'=> $nom,
+            ':prenom'=> $prenom,
+            ':email'=> $email,
+            ':telephone'=> $tel,
+            ':photo'=> $photo,
+            ':role'=> $role,
         ]);
     }
 

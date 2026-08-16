@@ -32,6 +32,9 @@ CREATE TABLE IF NOT EXISTS modules (
   id INT AUTO_INCREMENT PRIMARY KEY,
   cours_id INT NOT NULL,
   titre VARCHAR(255) NOT NULL,
+  description TEXT,
+  ordre INT DEFAULT 1,
+  image_hero VARCHAR(255) DEFAULT NULL,
   FOREIGN KEY (cours_id) REFERENCES cours(id)
 );
 
@@ -39,9 +42,7 @@ CREATE TABLE IF NOT EXISTS lecons (
   id INT AUTO_INCREMENT PRIMARY KEY,
   module_id INT NOT NULL,
   titre VARCHAR(255) NOT NULL,
-  video VARCHAR(255) DEFAULT NULL,
   contenu TEXT,
-  duree VARCHAR(50) DEFAULT '10 min',
   FOREIGN KEY (module_id) REFERENCES modules(id)
 );
 

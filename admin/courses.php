@@ -40,11 +40,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } else {
       if ($courseId > 0) {
         // MODIFICATION (UPDATE)
-        $cours->update($courseId, $titre, $description, '', $instrumentId ?: null, $niveau);
+        $cours->update($courseId, $titre, $description, $instrumentId ?: null, $niveau);
         $_SESSION['success'] = 'Cours modifié avec succès.';
       } else {
         // CRÉATION (INSERT)
-        $cours->create($titre, $description, '', $instrumentId ?: null, $niveau);
+        $cours->create($titre, $description, $instrumentId ?: null, $niveau);
         $_SESSION['success'] = 'Cours ajouté avec succès.';
       }
       header('Location: courses.php');
@@ -82,6 +82,7 @@ $courses = $pdo->query('SELECT c.id, c.titre, c.description, c.niveau, i.nom AS 
         <a href="users.php"><i class="fa-solid fa-users"></i> Utilisateurs</a>
         <a href="courses.php" class="active"><i class="fa-solid fa-book-open"></i> Cours</a>
         <a href="modules.php"><i class="fa-solid fa-layer-group"></i> Modules</a>
+        <a href="lecons.php"><i class="fa-solid fa-video"></i> Leçons</a>
         <a href="partitions.php"><i class="fa-solid fa-file-lines"></i> Partitions</a>
         <a href="instruments.php"><i class="fa-solid fa-music"></i> Instruments</a>
         <a href="exercices.php"><i class="fa-solid fa-clipboard-question"></i> Exercices</a>

@@ -18,10 +18,6 @@ TRUNCATE TABLE badges;
 SET FOREIGN_KEY_CHECKS = 1;
 
 -- 1. Insertion des UTILISATEURS
--- Mots de passe hachés avec password_hash('Admin123!', PASSWORD_DEFAULT) :
--- $2y$10$O5p38iH2l49KjKstXFp7CObNnS7M8C.D7.b2G4yRAnz8x/Z0OqUqG
--- Mots de passe hachés avec password_hash('apprenant123', PASSWORD_DEFAULT) :
--- $2y$10$eE5UuA1uS7Z0n1oY1iO2Euz39n4tE/fUvU.g/h72C2Q1g1n8T1F3K
 INSERT INTO utilisateurs (id, nom, prenom, email, telephone, photo, mot_de_passe, role, date_inscription) VALUES
 (1, 'Principal', 'Admin', 'admin@doremitendry.com', '0340012345', NULL, '$2y$10$O5p38iH2l49KjKstXFp7CObNnS7M8C.D7.b2G4yRAnz8x/Z0OqUqG', 'admin', NOW()),
 (2, 'Ranaivo', 'Jean', 'jean.ranaivo@gmail.com', '0321122334', NULL, '$2y$10$eE5UuA1uS7Z0n1oY1iO2Euz39n4tE/fUvU.g/h72C2Q1g1n8T1F3K', 'apprenant', NOW() - INTERVAL 15 DAY),
@@ -43,7 +39,7 @@ INSERT INTO cours (id, titre, description, image, instrument_id, niveau) VALUES
 -- 4. nouvelle table modules
 -- Insertion du Module 1
 INSERT INTO modules (id, titre, image_hero, ordre) 
-VALUES (1, 'HISTORIQUE ET INITIATION AU PIANO', 'piano-4.png', 1);
+VALUES (1, 'HISTORIQUE ET INITIATION AU PIANO', 1);
 
 -- 5. Insertion des LEÇONS
 INSERT INTO lecons (id, module_id, titre, video, contenu, duree) VALUES

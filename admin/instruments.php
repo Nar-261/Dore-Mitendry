@@ -31,17 +31,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['nom'])) {
         $instrumentId = isset($_POST['instrument_id']) ? (int)$_POST['instrument_id'] : 0;
         $nom = trim($_POST['nom'] ?? '');
-        $image = trim($_POST['image'] ?? '');
         $description = trim($_POST['description'] ?? '');
 
         if ($nom === '') {
             $errors[] = 'Le nom de l\'instrument est obligatoire.';
         } else {
             if ($instrumentId > 0) {
-                $inst->update($instrumentId, $nom, $image, $description);
+                $inst->update($instrumentId, $nom, $description);
                 $_SESSION['success'] = 'Instrument modifié avec succès.';
             } else {
-                $inst->create($nom, $image, $description);
+                $inst->create($nom, $description);
                 $_SESSION['success'] = 'Instrument ajouté avec succès.';
             }
             header('Location: instruments.php');
@@ -76,6 +75,7 @@ $instruments = $inst->getAll();
         <a href="users.php"><i class="fa-solid fa-users"></i> Utilisateurs</a>
         <a href="courses.php"><i class="fa-solid fa-book-open"></i> Cours</a>
         <a href="modules.php"><i class="fa-solid fa-layer-group"></i> Modules</a>
+        <a href="lecons.php"><i class="fa-solid fa-video"></i> Leçons</a>
         <a href="partitions.php"><i class="fa-solid fa-file-lines"></i> Partitions</a>
         <a href="instruments.php" class="active"><i class="fa-solid fa-music"></i> Instruments</a>
         <a href="exercices.php"><i class="fa-solid fa-clipboard-question"></i> Exercices</a>
@@ -103,10 +103,6 @@ $instruments = $inst->getAll();
             <input type="text" name="nom" value="<?= htmlspecialchars($editInstrument['nom'] ?? '') ?>" required />
           </div>
           <div class="form-group">
-            <label>Image (chemin ou URL)</label>
-            <input type="text" name="image" value="<?= htmlspecialchars($editInstrument['image'] ?? '') ?>" />
-          </div>
-          <div class="form-group">
             <label>Description</label>
             <textarea name="description" rows="3"><?= htmlspecialchars($editInstrument['description'] ?? '') ?></textarea>
           </div>
@@ -127,7 +123,6 @@ $instruments = $inst->getAll();
           <thead>
             <tr>
               <th>Nom</th>
-              <th>Image</th>
               <th>Description</th>
               <th>Actions</th>
             </tr>
@@ -136,7 +131,6 @@ $instruments = $inst->getAll();
             <?php foreach ($instruments as $ins): ?>
               <tr>
                 <td><?= htmlspecialchars($ins['nom'] ?? '') ?></td>
-                <td><?= htmlspecialchars($ins['image'] ?? '') ?></td>
                 <td><?= htmlspecialchars($ins['description'] ?? '') ?></td>
                 <td class="action-btn">
                   <form method="POST" style="display:inline;">

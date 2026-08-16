@@ -23,16 +23,26 @@ class lecon
         return $stmt->fetch(PDO::FETCH_ASSOC)?:null;
     }
 
-    public function create($module_id, $titre, $video, $contenu, $duree):bool
+    public function create($module_id, $titre, $contenu):bool
     {
-        $sql = 'INSERT INTO lecons (module_id, titre, video, contenu, duree) VALUES (:module_id, :titre, :video, :contenu, :duree)';
+        $sql = 'INSERT INTO lecons (module_id, titre, contenu) VALUES (:module_id, :titre, :contenu)';
         $stmt = $this->db->prepare($sql);
         return $stmt->execute([
             ':module_id'=> $module_id,
             ':titre'=> $titre,
-            ':video'=> $video,
             ':contenu'=> $contenu,
-            ':duree'=> $duree,
+        ]);
+    }
+
+    public function update($id, $module_id, $titre, $contenu):bool
+    {
+        $sql = 'UPDATE lecons SET module_id=:module_id, titre=:titre, contenu=:contenu WHERE id=:id';
+        $stmt = $this->db->prepare($sql);
+        return $stmt->execute([
+            ':id'=> $id,
+            ':module_id'=> $module_id,
+            ':titre'=> $titre,
+            ':contenu'=> $contenu,
         ]);
     }
 

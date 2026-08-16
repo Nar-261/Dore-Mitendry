@@ -23,13 +23,12 @@ class instrument
         return $stmt->fetch(PDO::FETCH_ASSOC)?:null;
     }
 
-    public function create($nom, $image, $description):bool
+    public function create($nom, $description):bool
     {
-        $sql = 'INSERT INTO instruments (nom, image, description) VALUES (:nom, :image, :description)';
+        $sql = 'INSERT INTO instruments (nom, description) VALUES (:nom, :description)';
         $stmt = $this->db->prepare($sql);
         return $stmt->execute([
             ':nom'=> $nom,
-            ':image'=> $image,
             ':description'=> $description,
         ]);
     }
@@ -41,14 +40,13 @@ class instrument
         return $stmt->execute([$id]);
     }
 
-    public function update($id, $nom, $image, $description): bool
+    public function update($id, $nom, $description): bool
     {
-        $sql = 'UPDATE instruments SET nom = :nom, image = :image, description = :description WHERE id = :id';
+        $sql = 'UPDATE instruments SET nom = :nom, description = :description WHERE id = :id';
         $stmt = $this->db->prepare($sql);
         return $stmt->execute([
             ':id' => $id,
             ':nom' => $nom,
-            ':image' => $image,
             ':description' => $description,
         ]);
     }
