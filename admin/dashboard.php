@@ -4,13 +4,17 @@ if (!isset($_SESSION['user_id']) || ($_SESSION['user_role'] ?? '') !== 'admin') 
     header('Location: ../login.php');
     exit;
 }
-require_once __DIR__ . '/../includes/db.php';
+require_once __DIR__ . '/../config/db.php';
 
+/**
+ * recupere tout les stats de la plateforme
+ */
 $stats = [
-    'users' => (int)$pdo->query('SELECT COUNT(*) FROM utilisateurs')->fetchColumn(),
+    'utilisateurs' => (int)$pdo->query('SELECT COUNT(*) FROM utilisateurs')->fetchColumn(),
     'courses' => (int)$pdo->query('SELECT COUNT(*) FROM cours')->fetchColumn(),
     'instruments' => (int)$pdo->query('SELECT COUNT(*) FROM instruments')->fetchColumn(),
     'messages' => (int)$pdo->query('SELECT COUNT(*) FROM messages')->fetchColumn(),
+    'modules'=>(int)$pdo->query('SELECT COUNT(*) FROM modules')
 ];
 
 $latestUsers = $pdo->query('SELECT nom, prenom, email, role, date_inscription FROM utilisateurs ORDER BY date_inscription DESC LIMIT 5')->fetchAll();
@@ -39,6 +43,10 @@ $latestCourses = $pdo->query('SELECT c.titre, i.nom AS instrument, c.niveau FROM
         <a href="dashboard.php" class="active"><i class="fa-solid fa-table-columns"></i> Tableau de bord</a>
         <a href="users.php"><i class="fa-solid fa-users"></i> Utilisateurs</a>
         <a href="courses.php"><i class="fa-solid fa-book-open"></i> Cours</a>
+        <a href="modules.php"><i class="fa-solid fa-layer-group"></i> Modules</a>
+        <a href="partitions.php"><i class="fa-solid fa-file-lines"></i> Partitions</a>
+        <a href="instruments.php"><i class="fa-solid fa-music"></i> Instruments</a>
+        <a href="exercices.php"><i class="fa-solid fa-clipboard-question"></i> Exercices</a>
         <a href="logout.php"><i class="fa-solid fa-right-from-bracket"></i> Déconnexion</a>
       </nav>
     </aside>
@@ -70,10 +78,12 @@ $latestCourses = $pdo->query('SELECT c.titre, i.nom AS instrument, c.niveau FROM
       </section>
 
       <div class="grid grid-3" style="margin-bottom:20px;">
-        <div class="stat-card"><h4><?= $stats['users'] ?></h4><p>Utilisateurs</p></div>
-        <div class="stat-card"><h4><?= $stats['courses'] ?></h4><p>Cours</p></div>
-        <div class="stat-card"><h4><?= $stats['instruments'] ?></h4><p>Instruments</p></div>
-        <div class="stat-card"><h4><?= $stats['messages'] ?></h4><p>Messages</p></div>
+        <?php foreach ($stats as $key => $value): ?>
+          <div class="stat-card">
+            <h4><?= $value ?></h4>
+            <p><?= ucfirst($key) ?></p>
+          </div>
+        <?php endforeach; ?>
       </div>
 
       <div class="grid grid-2">

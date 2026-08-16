@@ -16,7 +16,6 @@ CREATE TABLE IF NOT EXISTS utilisateurs (
 CREATE TABLE IF NOT EXISTS instruments (
   id INT AUTO_INCREMENT PRIMARY KEY,
   nom VARCHAR(100) NOT NULL,
-  image VARCHAR(255) DEFAULT NULL,
   description TEXT
 );
 
@@ -24,7 +23,6 @@ CREATE TABLE IF NOT EXISTS cours (
   id INT AUTO_INCREMENT PRIMARY KEY,
   titre VARCHAR(255) NOT NULL,
   description TEXT,
-  image VARCHAR(255) DEFAULT NULL,
   instrument_id INT,
   niveau VARCHAR(100) DEFAULT 'Débutant',
   FOREIGN KEY (instrument_id) REFERENCES instruments(id)
@@ -63,45 +61,3 @@ CREATE TABLE IF NOT EXISTS partitions (
   FOREIGN KEY (cours_id) REFERENCES cours(id)
 );
 
-CREATE TABLE IF NOT EXISTS progression (
-  id INT AUTO_INCREMENT PRIMARY KEY,
-  utilisateur_id INT NOT NULL,
-  cours_id INT NOT NULL,
-  pourcentage INT DEFAULT 0,
-  FOREIGN KEY (utilisateur_id) REFERENCES utilisateurs(id),
-  FOREIGN KEY (cours_id) REFERENCES cours(id)
-);
-
-CREATE TABLE IF NOT EXISTS certificats (
-  id INT AUTO_INCREMENT PRIMARY KEY,
-  utilisateur_id INT NOT NULL,
-  cours_id INT NOT NULL,
-  date_obtention TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  FOREIGN KEY (utilisateur_id) REFERENCES utilisateurs(id),
-  FOREIGN KEY (cours_id) REFERENCES cours(id)
-);
-
-CREATE TABLE IF NOT EXISTS badges (
-  id INT AUTO_INCREMENT PRIMARY KEY,
-  nom VARCHAR(100) NOT NULL,
-  description TEXT,
-  image VARCHAR(255) DEFAULT NULL
-);
-
-CREATE TABLE IF NOT EXISTS messages (
-  id INT AUTO_INCREMENT PRIMARY KEY,
-  expediteur INT NOT NULL,
-  destinataire INT NOT NULL,
-  contenu TEXT NOT NULL,
-  date_envoi TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  FOREIGN KEY (expediteur) REFERENCES utilisateurs(id),
-  FOREIGN KEY (destinataire) REFERENCES utilisateurs(id)
-);
-
-CREATE TABLE IF NOT EXISTS notifications (
-  id INT AUTO_INCREMENT PRIMARY KEY,
-  utilisateur_id INT NOT NULL,
-  message TEXT NOT NULL,
-  statut VARCHAR(20) DEFAULT 'non_lu',
-  FOREIGN KEY (utilisateur_id) REFERENCES utilisateurs(id)
-);
