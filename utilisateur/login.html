@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Connexion - DoRe-Mitendry</title>
+<link rel="stylesheet" href="login.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="brand">
+                <div class="logo-circle"></div>
+                <span class="brand-name">DoRe-Mitendry</span>
+            </div>
+            <a class="admin" href="">Admin</a>
+        </nav>
+    </header>
+
+    <main>
+        <h1 class="con">Connexion</h1>
+
+        <div class="connex">
+            <div class="ispm"><img src="logoispm.jpg" alt="Logo ISPM"></div>
+
+            <div class="form">
+                <form action="" method="post">
+                    <div class="field">
+                        <label for="nom">Nom</label>
+                        <input type="text" placeholder="Nom" required id="nom" name="nom" autocomplete="family-name">
+                    </div>
+
+                    <div class="field">
+                        <label for="prenom">Prénom</label>
+                        <input type="text" placeholder="Prénom" required id="prenom" name="prenom" autocomplete="given-name">
+                    </div>
+
+                    <div class="field">
+                        <label for="email">Email</label>
+                        <input type="email" placeholder="nom@email.com" required id="email" name="email" autocomplete="username">
+                    </div>
+
+                    <div class="field">
+                        <label for="password">Mot de passe</label>
+                        <input type="password" placeholder="Mot de passe" required id="password" name="password" autocomplete="current-password">
+                    </div>
+
+                    <button type="submit" class="submit-btn">Se connecter</button>
+                </form>
+
+                <div class="connecter">
+                    <a href="#">Mot de passe oublié ?</a>
+                    <span class="sep">ou</span>
+                    <a href="creer_compte.html">Créer un compte</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; <span id="year">2026</span> DoRe-Mitendry &middot; ISPM &middot; <a href="#">Contact</a></p>
+    </footer>
+
+    <script>
+        document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>

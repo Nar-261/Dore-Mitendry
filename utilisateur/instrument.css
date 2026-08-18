@@ -1,0 +1,64 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+:root{
+    --marron-sombre: #3e2723;
+    --marron-clair: #5d4037;
+    --beige: #f9f7f2;
+    --or: #c29b40;
+    --blanc: #ffffff;
+
+    /* Echelle typographique fluide */
+    --fs-h1: clamp(2.2rem, 5vw, 3.6rem);
+    --fs-p: clamp(1.05rem, 1.6vw, 1.25rem);
+    --fs-nav: clamp(0.95rem, 1.1vw, 1.05rem);
+    --fs-logo: clamp(1.2rem, 2vw, 1.6rem);
+    --fs-btn: clamp(1rem, 1.3vw, 1.1rem);
+}
+body{
+    margin-top: 15%;
+
+}
+h2{
+    text-align: center;
+    color: #3e2723;
+    font-size: 35px;
+}
+ul{
+    margin-top: 15vh;
+    text-align: center;
+    display: flex;
+    list-style: none;
+    justify-content: space-evenly;
+    margin-left: 10%;
+    margin-right: 10%;
+
+}
+li button{
+    background: #3e2723;
+    padding:30px 60px;
+    font-size: 30px;
+    border: none;
+    border-radius: 15px;
+    color: #ffffff;
+}
+button:hover{
+    background: #c29b40;
+}
+@media (max-width:768px){
+    ul{
+        display: block;
+    }
+    li button{
+        padding:20px ;
+        margin: 10px;
+    }
+    h2{
+        font-size: xx-large;
+    }
+    body{
+        
+    }
+}

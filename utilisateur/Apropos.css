@@ -1,0 +1,51 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --marron-profond: #3e2723;
+    --marron-doux: #5d4037;
+    --or-muet: #c29b40;
+    --fond-ivoire: #f9f7f2;
+    --ombre: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+h3 {
+    font-size: 30px;
+    text-align: center;
+    background: #5d4037;
+    color: #ffffff;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+h4 {
+    font-size: 25px;
+    text-indent: 1.5em;
+    text-align: start;
+}
+
+p {
+    margin-top: 10px;
+    font-size: 20px;
+    text-indent: 3em;
+    hyphens: auto;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+h4:hover{
+    color: #c29b40;
+}
+
+.philo {
+    margin-top: 3%;
+}
+
+.philo p {
+    text-align: center;
+    hyphens: auto;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}

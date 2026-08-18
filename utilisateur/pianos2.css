@@ -1,0 +1,110 @@
+/* Importation des polices */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;500&display=swap');
+
+:root {
+    --deep-brown: #3e2723;
+    --warm-brown: #5d4037;
+    --gold: #c29b40;
+    --ivory: #f9f7f2;
+    --shadow: 0 10px 30px rgba(0,0,0,0.15);
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--ivory);
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    color: var(--deep-brown);
+}
+
+header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.2rem;
+    text-align: center;
+    margin-bottom: 40px;
+    animation: fadeIn 1s ease-in;
+}
+
+/* --- Container de la liste --- */
+main ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    gap: 30px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+main li {
+    animation: slideUp 0.8s ease-out both;
+}
+
+/* Décalage d'apparition pour chaque bouton */
+main li:nth-child(1) { animation-delay: 0.2s; }
+main li:nth-child(2) { animation-delay: 0.4s; }
+
+/* --- Style des Boutons --- */
+button {
+    background-color: var(--deep-brown);
+    border: 2px solid var(--warm-brown);
+    border-radius: 12px;
+    padding: 0; /* Important pour que le lien prenne toute la place */
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+}
+
+button a {
+    display: block;
+    padding: 25px 50px;
+    color: white;
+    text-decoration: none;
+    font-size: 1.2rem;
+    font-weight: 500;
+    letter-spacing: 1px;
+}
+
+/* Effets au survol */
+button:hover {
+    background-color: var(--gold);
+    transform: scale(1.08);
+    border-color: var(--gold);
+}
+
+button:active {
+    transform: scale(0.95);
+}
+
+/* --- Animations --- */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* --- Responsivité --- */
+@media (max-width: 480px) {
+    main ul {
+        flex-direction: column;
+        align-items: center;
+    }
+    header h1 {
+        font-size: 1.6rem;
+        padding: 0 20px;
+    }
+}

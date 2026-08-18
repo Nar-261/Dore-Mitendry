@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vidéos - Module 3</title>
+    <link rel="stylesheet" href="module3piano.css">
+</head>
+
+<body>
+    <header>
+        <h1>Vidéos du module 3</h1>
+    </header>
+
+    <main>
+        <section class="intro-texte">
+            <h2>Pratiquez en vidéo</h2>
+            <p>Pour aller plus loin après les diagrammes des 180 accords, voici une sélection de vidéos.
+                1 leçon est accessible gratuitement, 4 leçons approfondies sont réservées aux membres premium,
+                et 1 vidéo bonus vous attend en plus. Cliquez sur une vidéo débloquée pour l'agrandir en plein écran.</p>
+        </section>
+
+        <section class="galerie">
+
+            <div class="groupe-titre">
+                <h2>Vidéo gratuite</h2>
+            </div>
+            <div class="video-grille">
+                <figure class="carte-video">
+                    <span class="badge badge-gratuit">Gratuit</span>
+                    <a href="#video-modal-1" class="agrandir-lien">
+                        <div class="video-embed">
+                            <iframe src="https://getsnap.link/Bt11fpFTyQT?share_arg3=copy%20link" title="Accords majeurs et mineurs"
+                                loading="lazy" allowfullscreen></iframe>
+                            <span class="icone-cercle icone-agrandir">⛶</span>
+                        </div>
+                    </a>
+                    <figcaption>Accords majeurs et mineurs</figcaption>
+                </figure>
+            </div>
+
+            <div class="groupe-titre">
+                <h2>Vidéos premium</h2>
+            </div>
+            <div class="video-grille">
+                <figure class="carte-video">
+                    <span class="badge badge-premium">Premium</span>
+                    <div class="verrouille-lien" title="Contenu réservé aux membres premium">
+                        <div class="video-embed premium-embed">
+                            <img src="images/premium-sixieme.jpg" alt="Accords de sixième en pratique" loading="lazy">
+                            <span class="icone-cercle verrou-coin">🔒</span>
+                        </div>
+                    </div>
+                    <figcaption>Accords de sixième en pratique</figcaption>
+                </figure>
+
+                <figure class="carte-video">
+                    <span class="badge badge-premium">Premium</span>
+                    <div class="verrouille-lien" title="Contenu réservé aux membres premium">
+                        <div class="video-embed premium-embed">
+                            <img src="images/premium-neuvieme.jpg" alt="Accords de neuvième en pratique" loading="lazy">
+                            <span class="icone-cercle verrou-coin">🔒</span>
+                        </div>
+                    </div>
+                    <figcaption>Accords de neuvième en pratique</figcaption>
+                </figure>
+
+                <figure class="carte-video">
+                    <span class="badge badge-premium">Premium</span>
+                    <div class="verrouille-lien" title="Contenu réservé aux membres premium">
+                        <div class="video-embed premium-embed">
+                            <img src="images/premium-suspendus.jpg" alt="Improviser avec les accords suspendus" loading="lazy">
+                            <span class="icone-cercle verrou-coin">🔒</span>
+                        </div>
+                    </div>
+                    <figcaption>Improviser avec les accords suspendus</figcaption>
+                </figure>
+
+                <figure class="carte-video">
+                    <span class="badge badge-premium">Premium</span>
+                    <div class="verrouille-lien" title="Contenu réservé aux membres premium">
+                        <div class="video-embed premium-embed">
+                            <img src="images/premium-deux-mains.jpg" alt="Enchaînements avancés à deux mains" loading="lazy">
+                            <span class="icone-cercle verrou-coin">🔒</span>
+                        </div>
+                    </div>
+                    <figcaption>Enchaînements avancés à deux mains</figcaption>
+                </figure>
+            </div>
+
+            <div class="groupe-titre">
+                <h2>Vidéo bonus</h2>
+            </div>
+            <div class="video-grille">
+                <figure class="carte-video">
+                    <span class="badge badge-bonus">Bonus</span>
+                    <a href="#video-modal-bonus" class="agrandir-lien">
+                        <div class="video-embed">
+                            <iframe src="https://www.youtube.com/embed/VIDEO_ID_BONUS" title="Vidéo bonus"
+                                loading="lazy" allowfullscreen></iframe>
+                            <span class="icone-cercle icone-agrandir">⛶</span>
+                        </div>
+                    </a>
+                    <figcaption>Vidéo bonus</figcaption>
+                </figure>
+            </div>
+
+            <div class="cta-abonnement">
+                <a class="bouton-abonnement" href="abonnement.html">
+                    <span class="cta-icone">🔓</span>
+                    Débloquer les vidéos premium
+                </a>
+            </div>
+
+        </section>
+    </main>
+
+    <footer>
+        <button type="button" class="btn-retour"><a href="accords180.html">Retour au module</a></button>
+        <button type="button" class="btn-suivant"><a href="pianos2.html">Suivant</a></button>
+    </footer>
+
+    <!-- Fenêtres modales plein écran pour les vidéos débloquées -->
+    <div class="video-modal" id="video-modal-1">
+        <div class="video-modal-contenu">
+            <a href="#" class="video-modal-fermer" aria-label="Fermer">✕</a>
+            <iframe src="https://getsnap.link/Bt11fpFTyQT?share_arg3=copy%20link" title="Accords majeurs et mineurs"
+                allowfullscreen></iframe>
+        </div>
+    </div>
+
+    <div class="video-modal" id="video-modal-bonus">
+        <div class="video-modal-contenu">
+            <a href="#" class="video-modal-fermer" aria-label="Fermer">✕</a>
+            <iframe src="https://www.youtube.com/embed/VIDEO_ID_BONUS" title="Vidéo bonus"
+                allowfullscreen></iframe>
+        </div>
+    </div>
+</body>
+
+</html>

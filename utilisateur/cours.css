@@ -1,0 +1,126 @@
+/* Importation d'une police élégante */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;500&display=swap');
+
+:root {
+    --marron-profond: #3e2723;
+    --marron-doux: #5d4037;
+    --or-muet: #c29b40;
+    --fond-ivoire: #f9f7f2;
+    --ombre: 0 8px 25px rgba(0,0,0,0.1);
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--fond-ivoire);
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    color: var(--marron-profond);
+}
+
+h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    letter-spacing: 2px;
+    margin-bottom: 50px;
+    text-align: center;
+    text-transform: uppercase;
+    animation: fadeInDown 0.8s ease-out;
+}
+
+/* --- Container de la liste --- */
+ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    gap: 25px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+li {
+    animation: fadeInUp 0.8s ease-out both;
+}
+
+/* Décalage pour l'apparition des boutons */
+li:nth-child(1) { animation-delay: 0.2s; }
+li:nth-child(2) { animation-delay: 0.4s; }
+li:nth-child(3) { animation-delay: 0.6s; }
+
+/* --- Style des Boutons --- */
+button {
+    background-color: var(--marron-profond);
+    border: 1px solid var(--marron-doux);
+    border-radius: 15px;
+    padding: 0;
+    cursor: pointer;
+    transition: all 0.4s ease;
+    box-shadow: var(--ombre);
+    min-width: 200px;
+    overflow: hidden;
+}
+
+button a {
+    display: block;
+    padding: 30px 20px;
+    color: white;
+    text-decoration: none;
+    font-size: 1.3rem;
+    font-weight: 500;
+    letter-spacing: 1px;
+}
+
+/* Effets au survol */
+button:hover {
+    background-color: var(--or-muet);
+    transform: translateY(-10px);
+    border-color: var(--or-muet);
+    box-shadow: 0 15px 35px rgba(194, 155, 64, 0.3);
+}
+
+button:active {
+    transform: scale(0.95);
+}
+
+/* --- Animations --- */
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* --- Adaptabilité Mobile --- */
+@media (max-width: 650px) {
+    ul {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    button {
+        width: 280px;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+        padding: 0 20px;
+    }
+}

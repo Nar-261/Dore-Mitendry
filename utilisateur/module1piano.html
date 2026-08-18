@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 1</title>
+    <link rel="stylesheet" href="module1piano.css">
+</head>
+
+<body>
+    <header>
+        <h1>HISTORIQUE ET INITIATION AU PIANO</h1>
+    </header>
+
+    <img src="piano 4.png" alt="piano" id="Piano">
+    <main>
+        <section>
+            <div class="intro">
+                <h2> Introduction et petite histoire du piano</h2>
+                <div class="blabla">
+                    <p> Le piano est un instrument de musique à clavier très populaire dans le monde.
+                        Il a été inventé au début de XVIIIe siècle par un facteur d'instrument Italien
+                        nommé <strong>Bartolomeo Cristofori</strong>.
+                    </p>
+
+                    <p>
+                        Avant le piano, on utilisait des instrument comme le clavecin, mais ceux-ci ne
+                        permettaient pas de varier l'intensité du son. Le piano a apporté une grande innovation:
+                        il permet de jouer <strong>doucement</strong> ou <strong>fort</strong> selon la pression
+                        des doigts.
+                    </p>
+
+                    <p>
+                        Au fil du temps, le piano est devenu un instrument central dans plusieurs styles musicaux :
+                        musique classique, jazz, gospel, pop, et bien d'autres.
+                    </p>
+                </div>
+
+            </div>
+
+        </section>
+
+        <section>
+            <h2> Les bases à connaître pour débuter </h2>
+            <article>
+                <h3> 1. Le Clavier </h3>
+                <p> Un piano standard possède <strong> 88 touches : </strong></p>
+                <ul>
+                    <li> Touches blanches: notes naturelles &#40; Do, Ré, Mi, Fa, Sol, La, Si &#41; </li>
+                    <li> Touches Noires: dièses &#40; # &#41; et Bémols &#40; &#9837; &#41; </li>
+                </ul>
+                <p> Le clavier est organisé en <strong> motifs répétitifs </strong> de 12 notes</p>
+
+                <img src="Clavier.PNG" alt="Présentation du clavier" class="shadow">
+            </article>
+
+            <article>
+                <h3> 2. La position des mains </h3>
+                <ul>
+                    <li> Garder des doigts <strong> légèrement arrondis. </strong></li>
+                    <li> Ne pas êtres crispé. </li>
+                    <li> Les poignets doivent <strong>êtres souples</strong>. </li>
+                </ul>
+                <img src="position des mains.jpg" alt="position des mains sur le piano" class="shadow">
+                <img src="bonne et mauvaise position.png" alt="bonne et mauvaise position des mains sur le piano" class="shadow">
+            </article>
+
+            <article>
+                <h3> 3. La position du corps </h3>
+                <ul>
+                    <li> S'assoir devant le piano </li>
+                    <li> Les pieds bien posés au sol </li>
+                    <li> Etre à une bonne distance du Clavier</li>
+                </ul>
+                <img src="position_corps_piano.jpg" alt="position_corps_piano" class="shadow">
+            </article>
+        </section>
+    </main>
+
+    <footer>
+        <!-- Checkbox invisible qui pilote l'ouverture/fermeture du résumé, sans JS -->
+        <input type="checkbox" id="resume-toggle" class="resume-toggle-checkbox">
+
+        <button type="button" class="btn-exercice"><a href="exomodule1piano.html">Exercice</a></button>
+
+        <label for="resume-toggle" class="btn-resume">Résumé</label>
+
+        <button type="button" class="btn-suivant"><a href="module2piano.html">Suivant</a></button>
+
+        <!-- Fenêtre de résumé, affichée par-dessus la page, aucune navigation -->
+        <div class="resume-overlay">
+            <label for="resume-toggle" class="resume-overlay-backdrop"></label>
+            <div class="resume-modal">
+                <label for="resume-toggle" class="resume-close" aria-label="Fermer">&times;</label>
+                <h2>Résumé du module</h2>
+
+                <h3>Introduction</h3>
+                <p>Le piano a été inventé au début du XVIIIe siècle par Bartolomeo Cristofori. Contrairement au
+                    clavecin, il permet de jouer doucement ou fort selon la pression des doigts, ce qui en a fait
+                    un instrument central de la musique classique, du jazz, du gospel et de la pop.</p>
+
+                <h3>Le clavier</h3>
+                <p>Un piano standard possède 88 touches : les touches blanches (notes naturelles Do, Ré, Mi, Fa,
+                    Sol, La, Si) et les touches noires (dièses et bémols), organisées en motifs répétitifs de 12
+                    notes.</p>
+
+                <h3>Position des mains</h3>
+                <p>Doigts légèrement arrondis, sans crispation, et poignets souples.</p>
+
+                <h3>Position du corps</h3>
+                <p>S'assoir devant le piano, pieds bien posés au sol, à une bonne distance du clavier.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>

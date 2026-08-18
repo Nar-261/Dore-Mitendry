@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Les formules des 15 principaux accords</title>
+    <link rel="stylesheet" href="module3piano.css">
+</head>
+
+<body>
+    <header>
+        <h1>Les formules des 15 principaux accords</h1>
+    </header>
+
+    <main>
+        <section class="intro-texte">
+            <h2>Formules de construction</h2>
+            <p>Avant de découvrir les 180 diagrammes d'accords, voici le document de référence qui explique
+                la formule mathématique de chacun des 15 principaux types d'accords (majeur, mineur, diminué,
+                augmenté, septième, sixième, neuvième...).</p>
+            <p>Vous pouvez le consulter directement ci-dessous ou le télécharger pour le garder sous la main.</p>
+        </section>
+
+        <section class="galerie">
+            <div class="groupe-titre">
+                <h2>Consulter le document</h2>
+            </div>
+
+            <div class="visionneuse-pdf">
+                <iframe src="explication.pdf" title="Formules des 15 principaux accords"
+                    loading="lazy"></iframe>
+            </div>
+
+            <div class="telechargement">
+                <a class="bouton-telecharger" href="explication.pdf" download>
+                    Télécharger le PDF
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <!-- Checkbox invisible qui pilote l'ouverture/fermeture du résumé, sans JS -->
+        <input type="checkbox" id="resume-toggle" class="resume-toggle-checkbox">
+
+        <button type="button" class="btn-retour"><a href="module2piano.html">Retour au module</a></button>
+
+        <label for="resume-toggle" class="btn-resume">Résumé</label>
+
+        <button type="button" class="btn-suivant"><a href="suivant.html">Suivant</a></button>
+
+        <!-- Fenêtre de résumé, affichée par-dessus la page, aucune navigation -->
+        <div class="resume-overlay">
+            <label for="resume-toggle" class="resume-overlay-backdrop"></label>
+            <div class="resume-modal">
+                <label for="resume-toggle" class="resume-close" aria-label="Fermer">&times;</label>
+                <h2>Résumé</h2>
+
+                <p>Cette page présente le document de référence expliquant la formule mathématique de chacun
+                    des 15 principaux types d'accords (majeur, mineur, diminué, augmenté, septième, sixième,
+                    neuvième...).</p>
+                <p>Le PDF est consultable directement dans la page ou téléchargeable pour le garder sous la
+                    main, avant de passer aux 180 diagrammes d'accords.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>
