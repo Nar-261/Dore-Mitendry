@@ -3,14 +3,6 @@ session_start();
 require_once __DIR__ . '/config/db.php';
 require_once __DIR__ . '/config/gestion/utilisateur.php';
 
-function respondJson(array $payload)
-{
-    header('Content-Type: application/json; charset=utf-8');
-    echo json_encode($payload);
-    exit;
-}
-
-$isAjax = !empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest';
 $errors = [];
 // Ensure a CSRF token exists for the form
 if (empty($_SESSION['csrf_token'])) {
@@ -69,13 +61,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 respondJson(['success' => true]);
             }
 
-            header('Location: utilisateur/dashboard.php');
+            header('Location: utilisateur/interface.php');
             exit;
         }
-    }
-
-    if ($isAjax) {
-        respondJson(['success' => false, 'errors' => $errors]);
     }
 }
 ?>
@@ -372,7 +360,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <div class="logo-circle"></div>
                 <span class="brand-name">DoRe-Mitendry</span>
             </div>
-            <a class="admin" href="#">Admin</a>
+            <a class="admin" href="admin/login.php">Admin</a>
         </nav>
     </header>
 
@@ -383,7 +371,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <div class="ispm"><img src="/IMAGES/logo-ispm.png" alt="Logo ISPM"></div>
 
             <div class="form">
-                <?php if (!empty($errors) && !$isAjax): ?>
+                <?php if (!empty($errors)): ?>
                     <div style="background:#fff0f0;color:#5c2c22;padding:10px;border-radius:8px;margin-bottom:12px;">
                         <ul style="margin:0;padding-left:18px;">
                             <?php foreach ($errors as $error): ?>

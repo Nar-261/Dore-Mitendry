@@ -142,8 +142,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </label>
       </div>
       <button class="btn" type="submit">Se connecter</button>
-    </form>
-  </div>
+    </form>    <p class="muted" style="margin-top:16px;"><a href="../login.php">Retour à l'accueil connexion</a></p>  </div>
 </body>
 
 </html>

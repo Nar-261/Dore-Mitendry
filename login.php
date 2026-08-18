@@ -2,13 +2,28 @@
 session_start();
 require_once __DIR__ . '/config/db.php';
 
-
-if (!empty($_SESSION['user_id'])) {
-  header('Location: utilisateur/dashboard.php');
+function redirectToDashboard(string $role): void
+{
+  if ($role === 'admin') {
+    header('Location: admin/dashboard.php');
+  } else {
+    header('Location: utilisateur/interface.php');
+  }
   exit;
 }
 
+if (!empty($_SESSION['user_id'])) {
+  redirectToDashboard($_SESSION['user_role'] ?? 'apprenant');
+}
+
 $errors = [];
+$selectedRole = $_POST['role'] ?? ($_GET['role'] ?? 'apprenant');
+$allowedRoles = ['apprenant', 'admin'];
+
+if (!in_array($selectedRole, $allowedRoles, true)) {
+  $selectedRole = 'apprenant';
+}
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $identifier = trim($_POST['identifier'] ?? '');
   $password = $_POST['password'] ?? '';
@@ -17,8 +32,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   if ($identifier === '' || $password === '') {
     $errors[] = 'Veuillez saisir votre email ou téléphone et votre mot de passe.';
   } else {
-    $stmt = $pdo->prepare("SELECT id, nom, prenom, mot_de_passe, role FROM utilisateurs WHERE role = 'apprenant' AND (email = ? OR telephone = ?) LIMIT 1");
-    $stmt->execute([$identifier, $identifier]);
+    $stmt = $pdo->prepare("SELECT id, nom, prenom, mot_de_passe, role FROM utilisateurs WHERE role = ? AND (email = ? OR telephone = ?) LIMIT 1");
+    $stmt->execute([$selectedRole, $identifier, $identifier]);
     $user = $stmt->fetch();
 
     if ($user && password_verify($password, $user['mot_de_passe'])) {
@@ -37,10 +52,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         ]);
       }
 
-      header('Location: utilisateur/dashboard.php');
-      exit;
+      redirectToDashboard($user['role']);
     } else {
-      $errors[] = 'Email ou mot de passe incorrect.';
+      $errors[] = 'Email ou mot de passe incorrect pour ce rôle.';
     }
   }
 }
@@ -215,6 +229,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       text-align: left;
     }
 
+    .field select,
+    .field input {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 8px;
+      background-color: rgba(255,255,255,0.05);
+      color: var(--white);
+      font-size: 0.95rem;
+    }
+
+    .field select {
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      cursor: pointer;
+    }
+
     .field label {
       color: var(--text-light);
       font-size: 0.85rem;
@@ -345,7 +377,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <div class="logo-circle"></div>
         <span class="brand-name">DoRe-Mitendry</span>
       </div>
-      <a class="admin" href="/admin/index.php">Admin</a>
+      <a class="admin" href="admin/index.php">Admin</a>
     </nav>
   </header>
 
@@ -353,7 +385,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <h1 class="con">Connexion</h1>
 
     <div class="connex">
-      <div class="ispm"><img src="/IMAGES/logo-ispm.png" alt="Logo ISPM"></div>
+      <div class="ispm"><img src="IMAGES/logo-ispm.png" alt="Logo ISPM"></div>
 
       <div class="form">
         <form method="post">
@@ -362,8 +394,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           } ?>
 
           <div class="field">
-            <label for="email">Email</label>
-            <input type="email" placeholder="nom@email.com" required id="email" name="identifier" autocomplete="username">
+            <label for="identifier">Email ou téléphone</label>
+            <input type="text" placeholder="nom@email.com ou 0600000000" required id="identifier" name="identifier" autocomplete="username" value="<?= htmlspecialchars($_POST['identifier'] ?? '') ?>">
           </div>
 
           <div class="field">

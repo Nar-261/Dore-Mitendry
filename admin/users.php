@@ -20,6 +20,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['user_id'], $_POST['ro
         $stmt->execute([$role, $userId]);
         $success = 'Rôle mis à jour avec succès.';
     }
+  if (isset($_POST['delete'])) {
+      $userId = (int)$_POST['delete'];
+      $stmt = $pdo->prepare('DELETE FROM utilisateurs WHERE id = ?');
+      $stmt->execute([$userId]);
+      $success = 'Utilisateur supprimé avec succès.';
+  }
 }
 
 $users = $pdo->query('SELECT id, nom, prenom, email, role, date_inscription FROM utilisateurs ORDER BY date_inscription DESC')->fetchAll();
@@ -68,7 +74,7 @@ $users = $pdo->query('SELECT id, nom, prenom, email, role, date_inscription FROM
                 <td><?= htmlspecialchars(($user['prenom'] ?? '') . ' ' . ($user['nom'] ?? '')) ?></td>
                 <td><?= htmlspecialchars($user['email'] ?? '') ?></td>
                 <td><?= htmlspecialchars($user['role'] ?? '') ?></td>
-                <td>
+                <td style='display:flex;flex-direction:row;gap:10px;'>
                   <form method="post" style="display:flex;gap:8px;align-items:center;">
                     <input type="hidden" name="user_id" value="<?= (int)$user['id'] ?>" />
                     <select name="role">
@@ -76,6 +82,10 @@ $users = $pdo->query('SELECT id, nom, prenom, email, role, date_inscription FROM
                       <option value="admin" <?= ($user['role'] ?? '') === 'admin' ? 'selected' : '' ?>>Admin</option>
                     </select>
                     <button class="btn btn-dark" type="submit">Enregistrer</button>
+                  </form>
+                  <form method="post" onsubmit="return confirm('Voulez-vous vraiment supprimer cet utilisateur ?');">
+                      <input type="hidden" name="delete" value="<?= (int)$user['id'] ?>">
+                      <button class="btn btn-dark" type="submit">Supprimer</button>
                   </form>
                 </td>
               </tr>

@@ -1,8 +1,12 @@
 <?php
-$host = '127.0.0.1';
-$db   = 'doremitendry';
-$user = 'admin';
-$pass = 'root';
+/**
+ * fichier contenant les configurations de la connexion vers la base de donnees
+ */
+
+$host = '127.0.0.1';//serveur
+$db   = 'doremitendry';//nom base de donnee
+$user = 'root'; //utilisateur base de donnee 'mysl -u root -p
+$pass = '';
 $charset = 'utf8mb4';
 
 $dsn = "mysql:host=$host;dbname=$db;charset=$charset";

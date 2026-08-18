@@ -138,8 +138,8 @@ $cours = $coursModel->getAll();
           <thead>
             <tr>
               <th>Titre</th>
-              <th>Fichier</th>
               <th>Cours</th>
+              <th>ordre</th>
               <th>Actions</th>
             </tr>
           </thead>

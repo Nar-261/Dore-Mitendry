@@ -1,12 +1,7 @@
--- Utilisation de la base de données
 USE doremitendry;
 
--- Suppression des données existantes pour repartir à zéro (en respectant l'ordre des clés étrangères)
 SET FOREIGN_KEY_CHECKS = 0;
-TRUNCATE TABLE notifications;
-TRUNCATE TABLE messages;
-TRUNCATE TABLE certificats;
-TRUNCATE TABLE progression;
+
 TRUNCATE TABLE exercices;
 TRUNCATE TABLE lecons;
 TRUNCATE TABLE modules;
@@ -14,61 +9,80 @@ TRUNCATE TABLE partitions;
 TRUNCATE TABLE cours;
 TRUNCATE TABLE instruments;
 TRUNCATE TABLE utilisateurs;
-TRUNCATE TABLE badges;
+
 SET FOREIGN_KEY_CHECKS = 1;
 
--- 1. Insertion des UTILISATEURS
-INSERT INTO utilisateurs (id, nom, prenom, email, telephone, photo, mot_de_passe, role, date_inscription) VALUES
-(1, 'Principal', 'Admin', 'admin@doremitendry.com', '0340012345', NULL, '$2y$10$O5p38iH2l49KjKstXFp7CObNnS7M8C.D7.b2G4yRAnz8x/Z0OqUqG', 'admin', NOW()),
-(2, 'Ranaivo', 'Jean', 'jean.ranaivo@gmail.com', '0321122334', NULL, '$2y$10$eE5UuA1uS7Z0n1oY1iO2Euz39n4tE/fUvU.g/h72C2Q1g1n8T1F3K', 'apprenant', NOW() - INTERVAL 15 DAY),
-(3, 'Andria', 'Mialy', 'mialy.andria@gmail.com', '0332233445', NULL, '$2y$10$eE5UuA1uS7Z0n1oY1iO2Euz39n4tE/fUvU.g/h72C2Q1g1n8T1F3K', 'apprenant', NOW() - INTERVAL 10 DAY),
-(4, 'Razafy', 'Feno', 'feno.razafy@gmail.com', '0344455667', NULL, '$2y$10$eE5UuA1uS7Z0n1oY1iO2Euz39n4tE/fUvU.g/h72C2Q1g1n8T1F3K', 'apprenant', NOW() - INTERVAL 5 DAY);
+INSERT INTO utilisateurs (id, nom, prenom, email, telephone, photo, mot_de_passe, role, date_inscription)
+VALUES
+(1, 'Martin', 'Claire', 'claire.martin@email.com', '0601020304', NULL, 'motdepasse123', 'apprenant', '2025-01-10 09:15:00'),
+(2, 'Dubois', 'Lucas', 'lucas.dubois@email.com', '0607080910', NULL, 'guitare2025', 'apprenant', '2025-02-18 14:45:00'),
+(3, 'Nguyen', 'Sophie', 'sophie.nguyen@email.com', '0611223344', NULL, 'violon77', 'admin', '2024-12-01 08:00:00'),
+(4, 'Moreau', 'Hugo', 'hugo.moreau@email.com', '0677889900', NULL, 'piano321', 'apprenant', '2025-03-07 11:20:00');
 
--- 2. Insertion des INSTRUMENTS
-INSERT INTO instruments (id, nom, image, description) VALUES
-(1, 'Piano','Le roi des instruments. Apprenez à coordonner vos deux mains et maîtrisez l''harmonie des accords.'),
-(2, 'Guitare', 'Polyvalente et chaleureuse. Des premiers accords ouverts au fingerpicking et solos.'),
-(3, 'Flûte', 'La pureté du souffle. Apprenez le contrôle du souffle, le doigté et l''interprétation de magnifiques mélodies.');
+INSERT INTO instruments (id, nom, description)
+VALUES
+(1, 'Piano', 'Instrument classique a cordes frappees, ideal pour la theorie musicale et le rythme.'),
+(2, 'Guitare', 'Instrument a cordes pincees tres utilise dans les styles acoustiques et pop.'),
+(3, 'Violon', 'Instrument a cordes frottees, apprecie pour son son expressif et sa technique.');
 
--- 3. Insertion des COURS
-INSERT INTO cours (id, titre, description, image, instrument_id, niveau) VALUES
-(1, 'Accords et rythmes - Niveau 1', 'Apprenez les bases fondamentales du piano : la posture, la lecture de notes simple, et vos premiers accords majeurs et mineurs.', 'piano.jpg', 1, 'Débutant'),
-(2, 'Rythmes et accompagnement', 'Maîtrisez les accords de base ouverts à la guitare et apprenez vos premières rythmiques pour accompagner des chansons populaires.', 'guitar.jpg', 2, 'Débutant'),
-(3, 'Solfège et lecture de notes', 'Ce cours vous guide pas à pas dans la lecture des clés de sol et de fa, et l''application sur la flûte à bec ou traversière.', 'flute.jpg', 3, 'Débutant');
+INSERT INTO cours (id, titre, description, instrument_id, niveau)
+VALUES
+(1, 'Decouverte du piano', 'Apprendre les bases du clavier, la posture et les premieres notes.', 1, 'Debutant'),
+(2, 'Guitare acoustique pour debutants', 'Maitriser les accords simples, le rythme et les premieres melodies.', 2, 'Debutant'),
+(3, 'Initiation au violon', 'Decouvrir la tenue de l''instrument, les premieres positions et les sons de base.', 3, 'Debutant'),
+(4, 'Piano niveau intermediaire', 'Approfondir la lecture de notes et la coordination mains gauche/droite.', 1, 'Intermediaire');
 
--- 4. nouvelle table modules
--- Insertion du Module 1
-INSERT INTO modules (id, titre, image_hero, ordre) 
-VALUES (1, 'HISTORIQUE ET INITIATION AU PIANO', 1);
+INSERT INTO modules (id, cours_id, titre, description, ordre, image_hero)
+VALUES
+(1, 1, 'Les bases du clavier', 'Comprendre la disposition des touches et la position des mains.', 1, 'piano_clavier.jpg'),
+(2, 1, 'Lecture des notes', 'Lire les notes sur la portee et les associer au clavier.', 2, 'piano_notes.jpg'),
+(3, 2, 'Premiers accords', 'Apprendre les accords de base et la mise en forme des doigts.', 1, 'guitare_accords.jpg'),
+(4, 2, 'Rythme et strumming', 'Creer un rythme regulier et accompagner une melodie simple.', 2, 'guitare_rythme.jpg'),
+(5, 3, 'Tenue de l''instrument', 'Apprendre la bonne posture et le placement du violon.', 1, 'violon_posture.jpg'),
+(6, 3, 'Les premieres notes', 'Jouer des notes simples avec precision et controle du son.', 2, 'violon_notes.jpg'),
+(7, 4, 'Coordination des mains', 'Travailler la coordination entre main gauche et main droite.', 1, 'piano_mains.jpg');
 
--- 5. Insertion des LEÇONS
-INSERT INTO lecons (id, module_id, titre, video, contenu, duree) VALUES
--- Cours Piano
-(1, 1, 'Positionnement des mains et posture', 'piano_posture.mp4', 'Asseyez-vous bien droit, les épaules détendues. Vos mains doivent former une arche naturelle, comme si vous teniez une balle de tennis délicatement.', '10 min'),
-(2, 1, 'Découverte des notes blanches', 'piano_notes.mp4', 'Le piano est structuré autour d''une alternance de touches blanches et noires. Repérez le Do (C) juste à gauche des deux touches noires.', '15 min'),
-(3, 2, 'L''accord de Do Majeur (C)', 'piano_accord_c.mp4', 'L''accord de Do Majeur est composé des notes Do (C), Mi (E) et Sol (G). Jouez-les simultanément avec les doigts 1, 3 et 5 de la main droite.', '12 min'),
-(4, 2, 'L''accord de La Mineur (Am)', 'piano_accord_am.mp4', 'Composé de La (A), Do (C) et Mi (E). Observez la différence de sonorité, plus mélancolique que l''accord de Do Majeur.', '10 min'),
-(5, 3, 'Indépendance de la main gauche', 'piano_main_gauche.mp4', 'Entraînez-vous à jouer une basse simple (Do en rondes) avec la main gauche pendant que la main droite joue l''accord plaqué.', '20 min'),
+INSERT INTO lecons (id, module_id, titre, contenu)
+VALUES
+(1, 1, 'Position des mains', 'Placez vos mains sur le clavier dans une posture naturelle et detendue.'),
+(2, 1, 'Decouverte des octaves', 'Identifiez les groupes de touches et apprenez a reperer les octaves.'),
+(3, 2, 'Lecture de la portee', 'Comprenez la relation entre les notes ecrites et les notes jouees.'),
+(4, 2, 'Exercices de memorisation', 'Travaillez la reconnaissance rapide des notes sur les touches du piano.'),
+(5, 3, 'Accord C majeur', 'Apprenez a placer les doigts et a faire sonner l''accord correctement.'),
+(6, 3, 'Accord G majeur', 'Travaillez la transition entre les accords et la stabilite du son.'),
+(7, 4, 'Les rythmes de base', 'Exercez des battements simples pour garder un tempo regulier.'),
+(8, 4, 'Strumming simple', 'Enchainez des mouvements bases sur des patterns de base.'),
+(9, 5, 'Position du violon', 'Apprenez a tenir l''instrument sans tension excessive.'),
+(10, 5, 'Placement du archet', 'Decouvrez la bonne prise et le mouvement du archet.'),
+(11, 6, 'Les notes La et Mi', 'Jouez les premieres notes avec precision et controle du souffle.'),
+(12, 6, 'Phonetique du son', 'Ameliorez la qualite du son a partir de la justesse du doigté.'),
+(13, 7, 'Main gauche', 'Travaillez la stabilite et la precision de la main gauche.'),
+(14, 7, 'Main droite', 'Entrainez le mouvement et le toucher de la main droite.');
 
--- Cours Guitare
-(6, 4, 'Savoir accorder sa guitare', 'guitar_tuning.mp4', 'L''accordage standard de la guitare est Mi, La, Ré, Sol, Si, Mi (E, A, D, G, B, E) de la corde la plus grave à la plus aiguë. Utilisez un accordeur.', '10 min'),
-(7, 4, 'L''accord de Mi Mineur (Em) et La Mineur (Am)', 'guitar_accords_easy.mp4', 'Ces deux accords ne nécessitent que peu de doigts. Pratiquez le passage fluide de l''un à l''autre.', '15 min'),
-(8, 5, 'Le rythme de feu de camp (Feu de camp strumming)', 'guitar_strumming.mp4', 'Apprenez le mouvement Bas - Bas - Haut - Haut - Bas - Haut. Gardez votre poignet souple comme si vous secouiez de l''eau.', '18 min'),
+INSERT INTO exercices (id, lecon_id, question, correction)
+VALUES
+(1, 1, 'Ou devez-vous placer vos mains au debut du cours ?', 'Les mains doivent etre relachees, au-dessus des touches, avec les doigts legerement courbes.'),
+(2, 1, 'Quel est l''objectif principal de la posture ?', 'Eviter la tension et permettre un mouvement fluide des doigts.'),
+(3, 2, 'Combien de touches comprend une octave ?', 'Une octave correspond a 8 notes, de Do a Do.'),
+(4, 2, 'Comment reperer les octaves ?', 'En observant les groupes de 2 puis 3 touches noires.'),
+(5, 3, 'Quelle est la premiere chose a verifier sur la portee ?', 'La cle utilisee et la position des notes sur les lignes et interlignes.'),
+(6, 3, 'Que devez-vous faire en jouant une note ?', 'La jouer avec precision et en gardant une posture stable.'),
+(7, 5, 'Quel doigt doit etre place sur la corde la plus grave pour l''accord C ?', 'Le doigt 1 sur la 1re corde, le 2 sur la 2e, le 3 sur la 3e, selon la position choisie.'),
+(8, 5, 'Quel est le but du bon placement des doigts ?', 'Produire un son clair et eviter les fausses notes.'),
+(9, 7, 'Quel rythme est conseille au debut ?', 'Un rythme simple a 4 temps, regulier et stable.'),
+(10, 7, 'Comment garder le tempo ?', 'En comptant clairement 1-2-3-4 a voix haute ou mentalement.'),
+(11, 9, 'Pourquoi la posture est-elle importante ?', 'Elle evite la fatigue et ameliore la qualite du son.'),
+(12, 9, 'Quelle partie du corps doit rester detendue ?', 'Le cou, les epaules et les bras.'),
+(13, 13, 'Que devez-vous travailler en priorite ?', 'La precision des doigts et le controle des notes.'),
+(14, 13, 'Comment ameliorer la main gauche ?', 'En faisant des exercices lents et reguliers.'),
+(15, 14, 'Que cherchez-vous avec la main droite ?', 'Le mouvement fluide et l''egalite du son.'),
+(16, 14, 'Quel est l''objectif du travail au clavier ?', 'Maintenir une sonorite homogene.');
 
--- Cours Flûte
-(9, 6, 'Maîtriser son souffle', 'flute_breath.mp4', 'Le son de la flûte dépend de la régularité de l''air. Soufflez doucement comme pour faire vaciller la flamme d''une bougie sans l''éteindre.', '10 min'),
-(10, 7, 'Les trois premières notes (Si, La, Sol)', 'flute_notes_basic.mp4', 'Bouchez le trou arrière avec le pouce gauche. Bouchez le 1er trou pour le Si, le 2ème pour le La, et le 3ème pour le Sol.', '15 min');
-
--- 6. Insertion des EXERCICES
-INSERT INTO exercices (id, lecon_id, question, correction) VALUES
-(1, 2, 'Quelle touche blanche se situe juste à gauche du groupe de deux touches noires ?', 'Le Do (C).'),
-(2, 3, 'Quelles sont les trois notes constituant l''accord de Do Majeur ?', 'Do, Mi, Sol (C, E, G).'),
-(3, 7, 'Quels doigts de la main gauche utilise-t-on pour jouer l''accord de Mi mineur (Em) ?', 'Le majeur (2ème doigt) et l''annulaire (3ème doigt) sur la 5ème et 4ème corde.'),
-(4, 10, 'Quel trou faut-il boucher à l''arrière de la flûte pour obtenir un son stable sur le Si, La ou Sol ?', 'Le trou du pouce gauche (trou 0) doit être entièrement bouché.');
-
--- 7. Insertion des PARTITIONS
-INSERT INTO partitions (id, titre, fichier, cours_id) VALUES
-(1, 'Frère Jacques - Partition Facile (Piano)', 'frere_jacques_piano.pdf', 1),
-(2, 'Ode à la Joie - Thème de Beethoven (Piano)', 'ode_a_la_joie_piano.pdf', 1),
-(3, 'Jeux Interdits - Thème de base (Guitare)', 'jeux_interdits_guitare.pdf', 2),
-(4, 'Au Clair de la Lune - Mélodie simple (Flûte)', 'au_clair_de_la_lune_flute.pdf', 3);
+INSERT INTO partitions (id, titre, fichier, cours_id)
+VALUES
+(1, 'Le Cours des premieres notes', 'partition_piano_01.pdf', 1),
+(2, 'Melodie douce au piano', 'partition_piano_02.pdf', 1),
+(3, 'Accords faciles', 'partition_guitare_01.pdf', 2),
+(4, 'Rythme de base', 'partition_guitare_02.pdf', 2),
+(5, 'Premier exercice de violon', 'partition_violon_01.pdf', 3),
+(6, 'Archet et sonorite', 'partition_violon_02.pdf', 3);

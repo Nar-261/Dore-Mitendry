@@ -113,7 +113,6 @@ class module
                     titre = :titre, 
                     description = :description, 
                     ordre = :ordre, 
-                    image_hero = :image_hero 
                 WHERE id = :id';
         
         $stmt = $this->db->prepare($sql);
@@ -123,7 +122,6 @@ class module
             ':titre'      => $titre,
             ':description'=> $description,
             ':ordre'      => $ordre,
-            ':image_hero' => $image_hero,
         ]);
     }
 

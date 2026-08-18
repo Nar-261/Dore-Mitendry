@@ -13,8 +13,7 @@ $stats = [
     'utilisateurs' => (int)$pdo->query('SELECT COUNT(*) FROM utilisateurs')->fetchColumn(),
     'courses' => (int)$pdo->query('SELECT COUNT(*) FROM cours')->fetchColumn(),
     'instruments' => (int)$pdo->query('SELECT COUNT(*) FROM instruments')->fetchColumn(),
-    'messages' => (int)$pdo->query('SELECT COUNT(*) FROM messages')->fetchColumn(),
-    'modules'=>(int)$pdo->query('SELECT COUNT(*) FROM modules')
+    'modules' => (int)$pdo->query('SELECT COUNT(*) FROM modules')->fetchColumn(),
 ];
 
 $latestUsers = $pdo->query('SELECT nom, prenom, email, role, date_inscription FROM utilisateurs ORDER BY date_inscription DESC LIMIT 5')->fetchAll();
