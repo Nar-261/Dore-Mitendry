@@ -1,34 +1,102 @@
 <?php
 session_start();
+
 if (!isset($_SESSION['user_id']) || ($_SESSION['user_role'] ?? '') !== 'admin') {
     header('Location: ../login.php');
     exit;
 }
+
 require_once __DIR__ . '/../config/db.php';
 require_once __DIR__ . '/../config/gestion/utilisateur.php';
 
-$success = '';
-$errors = [];
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['user_id'], $_POST['role'])) {
-    $userId = (int)$_POST['user_id'];
-    $role = trim($_POST['role']);
-    if ($role !== 'admin' && $role !== 'apprenant') {
-        $errors[] = 'Rôle invalide.';
-    } else {
-        $stmt = $pdo->prepare('UPDATE utilisateurs SET role = ? WHERE id = ?');
-        $stmt->execute([$role, $userId]);
-        $success = 'Rôle mis à jour avec succès.';
-    }
-  if (isset($_POST['delete'])) {
-      $userId = (int)$_POST['delete'];
-      $stmt = $pdo->prepare('DELETE FROM utilisateurs WHERE id = ?');
-      $stmt->execute([$userId]);
-      $success = 'Utilisateur supprimé avec succès.';
-  }
+if (empty($_SESSION['csrf_token'])) {
+    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
 }
 
-$users = $pdo->query('SELECT id, nom, prenom, email, role FROM utilisateurs ')->fetchAll();
+$success = '';
+$errors = [];
+$csrfToken = $_SESSION['csrf_token'];
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $tokenFromRequest = $_POST['csrf_token'] ?? '';
+
+    if (!hash_equals($csrfToken, $tokenFromRequest)) {
+        $errors[] = 'Jeton de sécurité invalide. Veuillez réessayer.';
+    } else {
+        $action = $_POST['action'] ?? '';
+
+        if ($action === 'update_role') {
+            $userId = filter_input(INPUT_POST, 'user_id', FILTER_VALIDATE_INT);
+            $newRole = trim((string)($_POST['role'] ?? ''));
+
+            if ($userId === false || $userId === null || $userId <= 0) {
+                $errors[] = 'Identifiant utilisateur invalide.';
+            } elseif (!in_array($newRole, ['admin', 'apprenant'], true)) {
+                $errors[] = 'Rôle invalide.';
+            } else {
+                $targetStmt = $pdo->prepare('SELECT id, role FROM utilisateurs WHERE id = ? LIMIT 1');
+                $targetStmt->execute([$userId]);
+                $targetUser = $targetStmt->fetch();
+
+                if (!$targetUser) {
+                    $errors[] = 'Utilisateur introuvable.';
+                } elseif ((int)$targetUser['id'] === (int)$_SESSION['user_id']) {
+                    $errors[] = 'Vous ne pouvez pas modifier votre propre rôle.';
+                } elseif ($targetUser['role'] === 'admin' && $newRole === 'apprenant') {
+                    $adminCountStmt = $pdo->prepare('SELECT COUNT(*) FROM utilisateurs WHERE role = ?');
+                    $adminCountStmt->execute(['admin']);
+                    $adminCount = (int)$adminCountStmt->fetchColumn();
+
+                    if ($adminCount <= 1) {
+                        $errors[] = 'Impossible de retirer le dernier administrateur.';
+                    } else {
+                        $stmt = $pdo->prepare('UPDATE utilisateurs SET role = ? WHERE id = ?');
+                        $stmt->execute([$newRole, $userId]);
+                        $success = 'Rôle mis à jour avec succès.';
+                    }
+                } else {
+                    $stmt = $pdo->prepare('UPDATE utilisateurs SET role = ? WHERE id = ?');
+                    $stmt->execute([$newRole, $userId]);
+                    $success = 'Rôle mis à jour avec succès.';
+                }
+            }
+        } elseif ($action === 'delete_user') {
+            $userId = filter_input(INPUT_POST, 'delete', FILTER_VALIDATE_INT);
+
+            if ($userId === false || $userId === null || $userId <= 0) {
+                $errors[] = 'Identifiant utilisateur invalide.';
+            } else {
+                $targetStmt = $pdo->prepare('SELECT id, role FROM utilisateurs WHERE id = ? LIMIT 1');
+                $targetStmt->execute([$userId]);
+                $targetUser = $targetStmt->fetch();
+
+                if (!$targetUser) {
+                    $errors[] = 'Utilisateur introuvable.';
+                } elseif ((int)$targetUser['id'] === (int)$_SESSION['user_id']) {
+                    $errors[] = 'Vous ne pouvez pas supprimer votre propre compte.';
+                } elseif ($targetUser['role'] === 'admin') {
+                    $adminCountStmt = $pdo->prepare('SELECT COUNT(*) FROM utilisateurs WHERE role = ?');
+                    $adminCountStmt->execute(['admin']);
+                    $adminCount = (int)$adminCountStmt->fetchColumn();
+
+                    if ($adminCount <= 1) {
+                        $errors[] = 'Impossible de supprimer le dernier administrateur.';
+                    } else {
+                        $stmt = $pdo->prepare('DELETE FROM utilisateurs WHERE id = ?');
+                        $stmt->execute([$userId]);
+                        $success = 'Utilisateur supprimé avec succès.';
+                    }
+                } else {
+                    $stmt = $pdo->prepare('DELETE FROM utilisateurs WHERE id = ?');
+                    $stmt->execute([$userId]);
+                    $success = 'Utilisateur supprimé avec succès.';
+                }
+            }
+        }
+    }
+}
+
+$users = $pdo->query('SELECT id, nom, prenom, email, role FROM utilisateurs ORDER BY nom, prenom')->fetchAll();
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -74,8 +142,10 @@ $users = $pdo->query('SELECT id, nom, prenom, email, role FROM utilisateurs ')->
                 <td><?= htmlspecialchars(($user['prenom'] ?? '') . ' ' . ($user['nom'] ?? '')) ?></td>
                 <td><?= htmlspecialchars($user['email'] ?? '') ?></td>
                 <td><?= htmlspecialchars($user['role'] ?? '') ?></td>
-                <td style='display:flex;flex-direction:row;gap:10px;'>
+                <td style="display:flex;flex-direction:row;gap:10px;">
                   <form method="post" style="display:flex;gap:8px;align-items:center;">
+                    <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($csrfToken) ?>" />
+                    <input type="hidden" name="action" value="update_role" />
                     <input type="hidden" name="user_id" value="<?= (int)$user['id'] ?>" />
                     <select name="role">
                       <option value="apprenant" <?= ($user['role'] ?? '') === 'apprenant' ? 'selected' : '' ?>>Apprenant</option>
@@ -84,8 +154,10 @@ $users = $pdo->query('SELECT id, nom, prenom, email, role FROM utilisateurs ')->
                     <button class="btn btn-dark" type="submit">Enregistrer</button>
                   </form>
                   <form method="post" onsubmit="return confirm('Voulez-vous vraiment supprimer cet utilisateur ?');">
-                      <input type="hidden" name="delete" value="<?= (int)$user['id'] ?>">
-                      <button class="btn btn-dark" type="submit">Supprimer</button>
+                    <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($csrfToken) ?>" />
+                    <input type="hidden" name="action" value="delete_user" />
+                    <input type="hidden" name="delete" value="<?= (int)$user['id'] ?>">
+                    <button class="btn btn-dark" type="submit">Supprimer</button>
                   </form>
                 </td>
               </tr>

@@ -57,10 +57,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_SESSION['user_role'] = 'apprenant';
             $_SESSION['user_name'] = $prenom ?: $nom;
 
-            if ($isAjax) {
-                respondJson(['success' => true]);
-            }
-
             header('Location: utilisateur/interface.php');
             exit;
         }

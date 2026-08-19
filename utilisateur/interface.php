@@ -28,7 +28,7 @@
                     <li><a href="instrument.html">Instruments</a></li>
                     <li><a href="cours.html">Cours</a></li>
                     <li><a href="Apropos.html">À propos</a></li>
-                    <li class="mobile-only"><a href="deconnexion.html">Déconnexion</a></li>
+                    <li class="mobile-only"><a href="../logout.php">Déconnexion</a></li>
                 </ul>
             </nav>
 
