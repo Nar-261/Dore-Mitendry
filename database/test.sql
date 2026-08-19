@@ -14,10 +14,10 @@ SET FOREIGN_KEY_CHECKS = 1;
 
 INSERT INTO utilisateurs (id, nom, prenom, email, telephone, photo, mot_de_passe, role, date_inscription)
 VALUES
-(1, 'Martin', 'Claire', 'claire.martin@email.com', '0601020304', NULL, 'motdepasse123', 'apprenant', '2025-01-10 09:15:00'),
-(2, 'Dubois', 'Lucas', 'lucas.dubois@email.com', '0607080910', NULL, 'guitare2025', 'apprenant', '2025-02-18 14:45:00'),
-(3, 'Nguyen', 'Sophie', 'sophie.nguyen@email.com', '0611223344', NULL, 'violon77', 'admin', '2024-12-01 08:00:00'),
-(4, 'Moreau', 'Hugo', 'hugo.moreau@email.com', '0677889900', NULL, 'piano321', 'apprenant', '2025-03-07 11:20:00');
+(1, 'Martin', 'Claire', 'claire.martin@email.com', '0601020304', NULL, 'motdepasse123', 'apprenant'),
+(2, 'Dubois', 'Lucas', 'lucas.dubois@email.com', '0607080910', NULL, 'guitare2025', 'apprenant'),
+(3, 'Nguyen', 'Sophie', 'sophie.nguyen@email.com', '0611223344', NULL, 'violon77', 'admin'),
+(4, 'Moreau', 'Hugo', 'hugo.moreau@email.com', '0677889900', NULL, 'piano321', 'apprenant');
 
 INSERT INTO instruments (id, nom, description)
 VALUES

@@ -5,8 +5,8 @@
 
 $host = '127.0.0.1';//serveur
 $db   = 'doremitendry';//nom base de donnee
-$user = 'root'; //utilisateur base de donnee 'mysl -u root -p
-$pass = '';
+$user = 'admin'; //utilisateur base de donnee 'mysl -u root -p
+$pass = 'root';
 $charset = 'utf8mb4';
 
 $dsn = "mysql:host=$host;dbname=$db;charset=$charset";

@@ -16,7 +16,7 @@ $stats = [
     'modules' => (int)$pdo->query('SELECT COUNT(*) FROM modules')->fetchColumn(),
 ];
 
-$latestUsers = $pdo->query('SELECT nom, prenom, email, role, date_inscription FROM utilisateurs ORDER BY date_inscription DESC LIMIT 5')->fetchAll();
+$latestUsers = $pdo->query('SELECT nom, prenom, email, role FROM utilisateurs LIMIT 5')->fetchAll();
 $latestCourses = $pdo->query('SELECT c.titre, i.nom AS instrument, c.niveau FROM cours c LEFT JOIN instruments i ON i.id = c.instrument_id ORDER BY c.id DESC LIMIT 5')->fetchAll();
 ?>
 <!DOCTYPE html>

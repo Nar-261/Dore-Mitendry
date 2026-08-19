@@ -28,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['user_id'], $_POST['ro
   }
 }
 
-$users = $pdo->query('SELECT id, nom, prenom, email, role, date_inscription FROM utilisateurs ORDER BY date_inscription DESC')->fetchAll();
+$users = $pdo->query('SELECT id, nom, prenom, email, role FROM utilisateurs ')->fetchAll();
 ?>
 <!DOCTYPE html>
 <html lang="fr">
